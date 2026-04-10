@@ -7,6 +7,11 @@ import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler
 } from 'chart.js';
 import { FEED_ITEMS as RAW_FEED_ITEMS } from './data/mockProducts';
+import { UserPage } from './pages/UserPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { EmailSignupPage } from './pages/EmailSignupPage';
+import { ProfileEditPage } from './pages/ProfileEditPage';
+import { DetailPage } from './pages/DetailPage';
 
 const INIT_TIME = Date.now();
 const parseTimeStr = (str: string) => {
@@ -19,6 +24,7 @@ const parseTimeStr = (str: string) => {
   if (str.includes('일')) seconds += parseInt(str.match(/(\d+)일/)?.[1] || '0') * 86400;
   if (str.includes('시간')) seconds += parseInt(str.match(/(\d+)시간/)?.[1] || '0') * 3600;
   if (str.includes('분')) seconds += parseInt(str.match(/(\d+)분/)?.[1] || '0') * 60;
+  if (str.includes('초')) seconds += parseInt(str.match(/(\d+)초/)?.[1] || '0');
   return seconds;
 };
 const REGION_MAP_COPY = [
@@ -472,8 +478,9 @@ function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: string, it
 }
 
 /* --- 2. 상품 상세 페이지 --- */
-function DetailPage({ onBack, item }: { onBack: () => void, item?: any }) {
-  const now = useNow();
+// @ts-ignore
+function OldDetailPage({ onBack, item }: { onBack: () => void, item?: any }) {
+  const now = typeof useNow === 'function' ? useNow() : Date.now();
   const chartData = {
     labels: ['1일', '1주', '1달', '3달', '6달'],
     datasets: [{
@@ -1255,321 +1262,6 @@ function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: 
   );
 }
 
-/* --- 6. 내 정보 페이지 --- */
-function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, item?: any) => void, onBack: () => void }) {
-  return (
-    <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
-            <ChevronLeft size={28} color="#2E343E" />
-          </div>
-          <h1 className="header-title" style={{ fontSize: '20px', margin: 0 }}>내 정보</h1>
-        </div>
-        <div style={{ display: 'flex', gap: '16px', color: '#1E293B' }}>
-          <Bell size={24} onClick={() => onNavigate('notifications')} style={{ cursor: 'pointer' }} />
-          <Settings size={24} onClick={() => onNavigate('settings')} style={{ cursor: 'pointer' }} />
-        </div>
-      </header>
-      
-      {/* 바디 */}
-      <div className="content-area" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
-        
-        {/* 1. 프로필 & 온도 & 삼진아웃 대시보드 */}
-        <section style={{ background: '#fff', padding: '24px 20px', borderBottomLeftRadius: '24px', borderBottomRightRadius: '24px', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-            <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#F1F5F9', border: '2px solid #35D8E6', overflow: 'hidden' }}>
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1E293B', margin: 0 }}>도깨비검객</h2>
-                <span style={{ fontSize: '11px', background: '#F1F5F9', color: '#64748B', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>상위 5%</span>
-              </div>
-              <div style={{ fontSize: '14px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Award size={16} color="#35D8E6" />
-                <span style={{ fontWeight: '500' }}>정확한 스나이퍼 (성공률 87%)</span>
-              </div>
-            </div>
-            <div style={{ cursor: 'pointer' }}>
-              <ChevronRight size={24} color="#CBD5E1" />
-            </div>
-          </div>
-
-          <div style={{ padding: '16px', borderRadius: '16px', background: '#F8FAFC', border: '1px solid #F1F5F9' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                🔥 깨비불 신뢰도
-              </div>
-              <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#FF4E50' }}>85°C</div>
-            </div>
-            {/* ProgressBar */}
-            <div style={{ height: '8px', background: '#E2E8F0', borderRadius: '4px', overflow: 'hidden', marginBottom: '16px' }}>
-              <div style={{ height: '100%', width: '85%', background: 'linear-gradient(90deg, #35D8E6 0%, #FF4E50 100%)', borderRadius: '4px' }} />
-            </div>
-
-            {/* 삼진아웃 구역 */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#FEF2F2', padding: '12px', borderRadius: '12px', border: '1px solid #FECACA', cursor: 'pointer' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldAlert size={18} color="#DC2626" />
-                <span style={{ fontSize: '13px', color: '#991B1B', fontWeight: 'bold' }}>삼진아웃 낙찰 파기 경고</span>
-              </div>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#DC2626' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FCA5A5' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FCA5A5' }} />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 2. 나의 경매 요약 */}
-        <section style={{ margin: '24px 20px' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '16px', color: '#1E293B' }}>나의 경매 활동</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <div style={{ background: '#fff', borderRadius: '16px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', cursor: 'pointer' }} onClick={() => onNavigate('bidding')}>
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📡</div>
-              <div style={{ fontSize: '12px', color: '#64748B', marginBottom: '4px', fontWeight: '500' }}>위태위태한</div>
-              <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                입찰 진행 중 <span style={{ color: '#35D8E6', fontSize: '16px' }}>3건</span>
-              </div>
-            </div>
-            <div style={{ background: '#fff', borderRadius: '16px', padding: '16px', boxShadow: '0 4px 12px rgba(239, 68, 68, 0.15)', border: '1px solid #FECACA', cursor: 'pointer' }} onClick={() => onNavigate('bidding')}>
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏰</div>
-              <div style={{ fontSize: '12px', color: '#DC2626', marginBottom: '4px', fontWeight: 'bold' }}>스피드 결제 필요!</div>
-              <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                결제 대기 중 <span style={{ color: '#EF4444', fontSize: '16px' }}>1건</span>
-              </div>
-            </div>
-            <div style={{ background: '#fff', borderRadius: '16px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', cursor: 'pointer' }}>
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🛒</div>
-              <div style={{ fontSize: '12px', color: '#64748B', marginBottom: '4px', fontWeight: '500' }}>내가 쟁취한</div>
-              <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                낙찰 완료 <span style={{ color: '#10B981', fontSize: '16px' }}>12건</span>
-              </div>
-            </div>
-            <div style={{ background: '#fff', borderRadius: '16px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', cursor: 'pointer' }}>
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📦</div>
-              <div style={{ fontSize: '12px', color: '#64748B', marginBottom: '4px', fontWeight: '500' }}>최고가 갱신중</div>
-              <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                나의 판매 <span style={{ color: '#F59E0B', fontSize: '16px' }}>2건</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. 깨비페이 (지갑) */}
-        <section style={{ margin: '24px 20px', background: '#2E343E', borderRadius: '20px', padding: '24px', color: '#fff', boxShadow: '0 8px 16px rgba(46,52,62,0.15)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', fontWeight: 'bold' }}>
-              <Wallet size={20} color="#35D8E6" />
-              깨비머니 <span style={{ fontSize: '11px', background: 'rgba(255,255,255,0.15)', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold', marginLeft: '4px' }}>빠른결제 전용</span>
-            </div>
-            <ChevronRight size={20} color="#94A3B8" style={{ cursor: 'pointer' }} />
-          </div>
-          <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '24px', letterSpacing: '-0.5px' }}>
-            1,250,000 <span style={{ fontSize: '18px', fontWeight: 'normal', color: '#94A3B8' }}>원</span>
-          </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <button style={{ flex: 1, padding: '14px', borderRadius: '14px', background: '#35D8E6', color: '#fff', border: 'none', fontWeight: 'bold', fontSize: '15px', cursor: 'pointer', boxShadow: '0 4px 10px rgba(53, 216, 230, 0.3)' }}>충전하기</button>
-            <button style={{ flex: 1, padding: '14px', borderRadius: '14px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', fontWeight: 'bold', fontSize: '15px', cursor: 'pointer' }}>카드 관리</button>
-          </div>
-        </section>
-
-        {/* 4. 리스트 메뉴 */}
-        <section style={{ margin: '0 20px', background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-          {[
-            { icon: <Clock size={20} color="#64748B" />, title: '나의 거래 내역 전체보기' },
-            { icon: <Heart size={20} color="#64748B" />, title: '찜한 상품 내역' },
-            { icon: <ShieldAlert size={20} color="#64748B" />, title: '패널티 이의 제기 현황', badge: '1건 진행중' },
-            { icon: <CreditCard size={20} color="#64748B" />, title: '자동 결제 수단 관리' },
-            { icon: <Settings size={20} color="#64748B" />, title: '단골/키워드 알림 관리' },
-          ].map((menu, idx) => (
-            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 20px', borderBottom: idx !== 4 ? '1px solid #F1F5F9' : 'none', cursor: 'pointer' }} onClick={() => menu.title.includes('찜한') && onNavigate('wishlist')}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '15px', color: '#1E293B', fontWeight: '500' }}>
-                {menu.icon}
-                {menu.title}
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {menu.badge && (
-                  <span style={{ fontSize: '12px', background: '#F1F5F9', color: '#64748B', padding: '4px 10px', borderRadius: '12px', fontWeight: 'bold' }}>{menu.badge}</span>
-                )}
-                <ChevronRight size={18} color="#CBD5E1" />
-              </div>
-            </div>
-          ))}
-        </section>
-      </div>
-
-      <nav className="bottom-nav">
-        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('home')}><Home size={22} strokeWidth={2.5} /><span>홈</span></div>
-        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
-        <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate('registration')}>
-          <Plus size={28} color="#fff" strokeWidth={3} />
-        </div>
-        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('chat')}>
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <MessageCircle size={22} />
-            <div style={{ position: 'absolute', top: '-6px', right: '-8px', background: '#EF4444', color: '#fff', fontSize: '10px', fontWeight: 'bold', width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #fff', boxShadow: '0 1px 3px rgba(239,68,68,0.3)' }}>1</div>
-          </div>
-          <span>채팅</span>
-        </div>
-        <div className="nav-item active" style={{cursor: 'pointer'}} ><User size={22} /><span>내 정보</span></div>
-      </nav>
-    </>
-  );
-}
-
-/* --- 7. 통합 설정 페이지 --- */
-const CustomToggle = ({ checked, onChange }: { checked: boolean, onChange: () => void }) => (
-  <div onClick={onChange} style={{ width: '48px', height: '26px', background: checked ? '#10B981' : '#E2E8F0', borderRadius: '13px', position: 'relative', cursor: 'pointer', transition: 'background 0.2s', flexShrink: 0 }}>
-    <div style={{ position: 'absolute', top: '2px', left: checked ? '24px' : '2px', width: '22px', height: '22px', background: '#fff', borderRadius: '50%', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', transition: 'left 0.2s' }} />
-  </div>
-);
-
-function SettingsPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string) => void }) {
-  const [toggles, setToggles] = useState({
-    outbid: true,
-    deadline: true,
-    dnd: false,
-    autoPay: false,
-    blindMode: false,
-    bioAuth: true,
-    darkMode: false,
-  });
-
-  const handleToggle = (key: keyof typeof toggles) => {
-    setToggles(prev => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-    <h3 style={{ fontSize: '14px', fontWeight: 'bold', color: '#64748B', marginLeft: '20px', marginBottom: '8px', marginTop: '24px' }}>{children}</h3>
-  );
-
-  const SettingRow = ({ icon, title, desc, right, onClick }: { icon?: React.ReactNode, title: React.ReactNode, desc?: React.ReactNode, right?: React.ReactNode, onClick?: () => void }) => (
-    <div onClick={onClick} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: onClick ? 'pointer' : 'default' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        {icon}
-        <div>
-          <div style={{ fontSize: '15px', fontWeight: '500', color: '#1E293B' }}>{title}</div>
-          {desc && <div style={{ fontSize: '12px', color: '#94A3B8', marginTop: '4px', lineHeight: 1.3 }}>{desc}</div>}
-        </div>
-      </div>
-      <div>{right}</div>
-    </div>
-  );
-
-  return (
-    <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
-            <ChevronLeft size={28} color="#2E343E" />
-          </div>
-          <h1 className="header-title" style={{ fontSize: '18px' }}>설정</h1>
-        </div>
-      </header>
-
-      <div className="content-area" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh' }}>
-        
-        <SectionTitle>🔔 경매 특화 알림 설정</SectionTitle>
-        <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
-          <SettingRow 
-            icon={<Bell size={22} color="#64748B" />}
-            title="입찰 추월(역전) 알림" 
-            desc="내 최고 입찰가를 누군가 깼을 때 즉시 알림"
-            right={<CustomToggle checked={toggles.outbid} onChange={() => handleToggle('outbid')} />}
-          />
-          <SettingRow 
-            icon={<Clock size={22} color="#64748B" />}
-            title="마감 임박 긴급 알림" 
-            desc="관심 상품 종료 5분전 화면을 띄워 알림"
-            right={<CustomToggle checked={toggles.deadline} onChange={() => handleToggle('deadline')} />}
-          />
-          <SettingRow 
-            icon={<Moon size={22} color="#64748B" />}
-            title="심야 방해금지 모드 (23시~07시)" 
-            desc="*주의: 이 시간대 입찰을 뺏겨도 알림이 오지 않습니다."
-            right={<CustomToggle checked={toggles.dnd} onChange={() => handleToggle('dnd')} />}
-          />
-        </div>
-
-        <SectionTitle>⚡ 거래 및 입찰 자동화 설정</SectionTitle>
-        <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
-          <SettingRow 
-            icon={<CreditCard size={22} color="#64748B" />}
-            title={<span style={{ color: '#059669', fontWeight: 'bold' }}>낙찰 즉시 자동 결제 (스피드 패스)</span>}
-            desc="낙찰 성공 시, 깨비페이 잔액에서 즉시 결제하여 15초 미결제 패널티를 완벽 방지합니다."
-            right={<CustomToggle checked={toggles.autoPay} onChange={() => handleToggle('autoPay')} />}
-          />
-          <SettingRow 
-            icon={<Gavel size={22} color="#64748B" />}
-            title="기본 입찰 단위 설정" 
-            right={<div style={{ fontSize: '14px', color: '#35D8E6', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>+ 1,000 원 <ChevronRight size={16} /></div>}
-          />
-          <SettingRow 
-            icon={<UserCheck size={22} color="#64748B" />}
-            title="블라인드 입찰용 익명 닉네임 사용" 
-            desc="입찰 시 '도깨비검객' 대신 '무명의 입찰자3'으로 표시"
-            right={<CustomToggle checked={toggles.blindMode} onChange={() => handleToggle('blindMode')} />}
-          />
-        </div>
-
-        <SectionTitle>🔐 계정 보안 및 인증</SectionTitle>
-        <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
-          <SettingRow 
-            icon={<MapPin size={22} color="#64748B" />}
-            title="동네 위치 인증 관리"
-            desc="마지막 인증: 한남동 (1일 전)"
-            right={<button style={{ padding: '6px 12px', borderRadius: '8px', background: '#F1F5F9', border: '1px solid #CBD5E1', fontSize: '13px', fontWeight: 'bold', color: '#475569', cursor: 'pointer' }}>갱신</button>}
-          />
-          <SettingRow 
-            icon={<Smartphone size={22} color="#64748B" />}
-            title="생체 인증(Face ID) 빠른 결제" 
-            right={<CustomToggle checked={toggles.bioAuth} onChange={() => handleToggle('bioAuth')} />}
-          />
-          <SettingRow 
-            icon={<Key size={22} color="#64748B" />}
-            title="깨비페이 결제 비밀번호 변경" 
-            right={<ChevronRight size={20} color="#CBD5E1" />}
-          />
-        </div>
-
-        <SectionTitle>📚 가이드 및 운영 정책</SectionTitle>
-        <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
-          <SettingRow 
-            icon={<ShieldAlert size={22} color="#DC2626" />}
-            title={<span style={{ color: '#DC2626', fontWeight: 'bold' }}>🔥 깨비 패널티 및 삼진아웃 규정</span>}
-            right={<ChevronRight size={20} color="#CBD5E1" />}
-            onClick={() => onNavigate('guide_penalty')}
-          />
-          <SettingRow 
-            icon={<HelpCircle size={22} color="#64748B" />}
-            title="경매 금지/제한 품목 가이드" 
-            right={<ChevronRight size={20} color="#CBD5E1" />}
-            onClick={() => onNavigate('guide_restricted')}
-          />
-        </div>
-
-        <SectionTitle>🌙 화면 테마 설정</SectionTitle>
-        <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', marginBottom: '40px' }}>
-          <SettingRow 
-            icon={<Moon size={22} color="#64748B" />}
-            title="다크 모드 사용" 
-            right={<CustomToggle checked={toggles.darkMode} onChange={() => handleToggle('darkMode')} />}
-          />
-        </div>
-        
-        <div style={{ textAlign: 'center', paddingBottom: '40px' }}>
-          <span style={{ fontSize: '13px', color: '#94A3B8', textDecoration: 'underline', cursor: 'pointer' }}>로그아웃</span>
-          <span style={{ margin: '0 12px', color: '#CBD5E1' }}>|</span>
-          <span style={{ fontSize: '13px', color: '#94A3B8', textDecoration: 'underline', cursor: 'pointer' }}>회원탈퇴</span>
-        </div>
-      </div>
-    </>
-  );
-}
-
 /* --- 8. 운영 정책 가이드 페이지 --- */
 function PenaltyGuidePage({ onBack }: { onBack: () => void }) {
   return (
@@ -2031,6 +1723,8 @@ function App() {
       {currentPage === 'guide_penalty' && <PenaltyGuidePage onBack={handleBack} />}
       {currentPage === 'guide_restricted' && <RestrictedItemGuidePage onBack={handleBack} />}
       {currentPage === 'notifications' && <NotificationPage onBack={handleBack} />}
+      {currentPage === 'email_signup' && <EmailSignupPage onBack={handleBack} onComplete={() => handleNavigate('home')} />}
+      {currentPage === 'profile_edit' && <ProfileEditPage onBack={handleBack} onComplete={handleBack} />}
 
     </div>
   );
