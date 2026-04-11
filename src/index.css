@@ -30,6 +30,10 @@
   -webkit-tap-highlight-color: transparent; 
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Pretendard', sans-serif;
   background-color: #E2E8F0;
@@ -37,7 +41,9 @@ body {
   justify-content: center;
   color: var(--text-dark);
   overflow: hidden; /* 브라우저 전체 스크롤 방지 */
-  height: 100vh; /* 화면 크기 고정 */
+  height: 100%;
+  position: fixed; /* iOS 및 줌 스케일링에서 상단 잘림 방지 */
+  width: 100%;
 }
 
 /* --- 모바일 감성 슬림 스크롤바 커스텀 --- */
@@ -63,7 +69,7 @@ body {
   width: 100%;
   max-width: var(--app-width);
   background-color: var(--bg-soft-gray);
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -72,13 +78,20 @@ body {
   box-shadow: 0 0 50px rgba(0,0,0,0.15);
 }
 
+.content-area {
+  padding: 0 39px 45px 45px; /* Top:0 Right:39px(45-6px scrollbar) Bottom:45px Left:45px */
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Pretendard', sans-serif;
   color: var(--text-dark);
 }
 
 .top-header {
-  padding: 24px 24px 16px;
+  padding: 24px 39px 16px 45px; /* Left aligned to 45px, Right aligned to 39px (45px visual) */
   position: sticky;
   top: 0;
   background: rgba(248, 250, 252, 0.85);
@@ -104,8 +117,9 @@ h1, h2, h3, h4 {
   margin-right: -4px;
 }
 .logo-text {
-  font-family: 'Montserrat', sans-serif;
   font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 25px;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-dark);
@@ -173,10 +187,6 @@ h1, h2, h3, h4 {
   filter: drop-shadow(0 0 5px #FFE600); /* Golden glow */
 }
 
-.content-area {
-  padding: 0 24px 24px;
-  flex: 1 0 auto;
-}
 
 .card {
   background: var(--bg-white);
@@ -214,7 +224,7 @@ h1, h2, h3, h4 {
 .product-stats { display: flex; justify-content: space-between; margin-bottom: 24px; }
 .stat-col { display: flex; flex-direction: column; }
 .stat-col.right { text-align: right; }
-.stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+.stat-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
 .stat-value { font-size: 18px; font-weight: 800; }
 
 .btn {
@@ -241,7 +251,7 @@ h1, h2, h3, h4 {
 /* Live Auction / Rankings */
 .activity-item { display: flex; align-items: center; margin-bottom: 16px; }
 .activity-item:last-child { margin-bottom: 0; }
-.activity-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
+.activity-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
 .icon-green { background: #E6FDF0; }
 .icon-cyan { background: #E6FAFB; }
 .activity-text { flex: 1; }
@@ -252,8 +262,8 @@ h1, h2, h3, h4 {
 .ranking-item:last-child { border-bottom: none; }
 .rank-index { width: 20px; font-size: 14px; font-weight: 700; color: var(--text-muted); }
 .rank-index.top { color: var(--text-dark); }
-.rank-avatar { width: 36px; height: 36px; border-radius: 50%; margin-right: 12px; display: flex; align-items: center; justify-content: center; }
-.rank-name { flex: 1; font-size: 14px; font-weight: 600; }
+.rank-avatar { width: 40px; height: 40px; border-radius: 50%; margin-right: 12px; display: flex; align-items: center; justify-content: center; }
+.rank-name { flex: 1; font-size: 15px; font-weight: 600; }
 .rank-price { font-weight: 800; font-size: 15px; }
 
 .badge-row { display: flex; justify-content: center; gap: 20px; padding: 10px 0; }
@@ -342,7 +352,7 @@ h1, h2, h3, h4 {
   margin-top: 4px;
 }
 
-.price-label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
+.price-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
 .price-value.pulse-text { 
   font-size: 26px; 
   font-weight: 800; 
@@ -443,10 +453,10 @@ h1, h2, h3, h4 {
   background: rgba(248, 250, 252, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  margin-left: -24px;
-  margin-right: -24px;
-  padding-left: 24px;
-  padding-right: 24px;
+  margin-left: -45px;
+  margin-right: -39px;
+  padding-left: 45px;
+  padding-right: 39px;
 }
 .category-scroll::-webkit-scrollbar { display: none; }
 .cat-pill {
@@ -526,9 +536,9 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 .feed-img-box {
-  width: 90px;
-  height: 90px;
-  border-radius: var(--radius-sm);
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-md);
   background: #F8FAFC;
   display: flex;
   align-items: center;
@@ -541,9 +551,9 @@ h1, h2, h3, h4 {
   flex-direction: column;
   justify-content: center;
 }
-.feed-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-.feed-price { font-size: 16px; font-weight: 800; color: var(--goblin-fire); margin-bottom: 8px; }
-.feed-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.feed-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.feed-price { font-size: 17px; font-weight: 800; color: var(--goblin-fire); margin-bottom: 12px; }
+.feed-meta { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: var(--text-muted); font-weight: 600; }
 
 .bottom-nav {
   position: sticky;
@@ -556,7 +566,8 @@ h1, h2, h3, h4 {
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 48px 0 54px; /* Gathered inwards past the content bounds for a comfy center cluster */
   align-items: center;
   box-shadow: 0 -10px 40px rgba(0,0,0,0.05);
   z-index: 100;
@@ -570,7 +581,7 @@ h1, h2, h3, h4 {
   cursor: pointer;
 }
 .nav-item.active { color: var(--text-dark); }
-.nav-item span { font-size: 10px; font-weight: 600; }
+.nav-item span { font-size: 11px; font-weight: 600; }
 
 .nav-fab {
   width: 56px;
@@ -592,10 +603,10 @@ h1, h2, h3, h4 {
   transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
-  margin-left: -24px;
-  margin-right: -24px;
-  padding-left: 24px;
-  padding-right: 24px;
+  margin-left: -28px;
+  margin-right: -28px;
+  padding-left: 28px;
+  padding-right: 28px;
 }
 .curtain-wrapper.open {
   grid-template-rows: 1fr;

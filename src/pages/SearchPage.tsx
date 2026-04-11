@@ -44,7 +44,7 @@ export function SearchPage({ onNavigate, onBack }: { onNavigate: (page: string, 
             onBack();
           }
         }}>
-          <ChevronLeft size={24} />
+          <ChevronLeft size={28} />
         </button>
         <div style={{ flex: 1, position: 'relative' }}>
           <div style={{
@@ -57,7 +57,7 @@ export function SearchPage({ onNavigate, onBack }: { onNavigate: (page: string, 
             alignItems: 'center',
             transition: 'all 0.2s ease-in-out'
           }}>
-            <Search size={22} color={keyword ? "#EF4444" : "#94A3B8"} style={{ position: 'absolute', left: '16px', transition: 'color 0.2s' }} />
+            <Search size={24} color={keyword ? "#EF4444" : "#94A3B8"} style={{ position: 'absolute', left: '16px', transition: 'color 0.2s' }} />
             <input 
               type="text" 
               placeholder="어떤 꿀매물을 낚아챌까요? 🎣"
@@ -118,7 +118,7 @@ export function SearchPage({ onNavigate, onBack }: { onNavigate: (page: string, 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px', color: '#0F172A' }}>
-                  <Flame size={22} color="#EF4444" strokeWidth={2.5} fill="#EF4444" /> 실시간 핫 경매어
+                  <Flame size={24} color="#EF4444" strokeWidth={2.5} fill="#EF4444" /> 실시간 핫 경매어
                 </h3>
                 <span style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 600 }}>방금 전 기준</span>
               </div>

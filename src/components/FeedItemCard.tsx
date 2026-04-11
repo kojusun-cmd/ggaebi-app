@@ -52,15 +52,38 @@ export function FeedItemCard({ item, onNavigate, badge, priceSuffix, customMeta 
           </div>
         )}
       </div>
-      <div className="feed-info" style={{ opacity: 1, transition: 'opacity 0.3s ease' }}>
-        <div className="feed-title">{item.title}</div>
-        <div className="feed-price">
-          {item.price}
-          {priceSuffix}
+      <div className="feed-info" style={{ opacity: 1, transition: 'opacity 0.3s ease', display: 'flex', flexDirection: 'column', paddingBottom: '4px', overflow: 'hidden', justifyContent: 'center' }}>
+        <div>
+          <div className="feed-title" style={{ 
+            paddingRight: '4px', 
+            marginBottom: '4px', 
+            wordBreak: 'keep-all'
+          }}>
+            {item.title}
+          </div>
+          <div className="feed-price" style={{ margin: 0, whiteSpace: 'nowrap' }}>
+            {item.price}
+            {priceSuffix && <span style={{ marginLeft: '4px', fontSize: '14px', color: 'var(--text-muted)' }}>{priceSuffix}</span>}
+          </div>
         </div>
-        <div className="feed-meta">
-          <span>남은 시간: {isEnded ? <span style={{ color: '#EF4444', fontWeight: 'bold' }}>마감 완료</span> : <AuctionTimer endTime={item.endTime} isDetail={false} />}</span>
-          {customMeta || <span>입찰: {item.bids}명</span>}
+        
+        <div className="feed-meta" style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'flex-end', 
+          marginTop: '16px',
+          gap: '4px', 
+          paddingBottom: '2px',
+          whiteSpace: 'nowrap'
+        }}>
+          {isEnded ? (
+            <span style={{ color: '#EF4444', fontWeight: 'bold' }}>마감 완료</span>
+          ) : (
+            <span style={{ color: '#F97316', fontWeight: 'bold', display: 'flex', gap: '4px', alignItems: 'center' }}>
+              남은시간 <AuctionTimer endTime={item.endTime} isDetail={false} />
+            </span>
+          )}
+          {customMeta ? customMeta : <span style={{ color: '#64748B', fontWeight: 'bold' }}>입찰 {item.bids}명</span>}
         </div>
       </div>
     </div>

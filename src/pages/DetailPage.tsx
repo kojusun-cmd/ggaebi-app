@@ -233,19 +233,19 @@ export function DetailPage({ onBack, item }: { onBack: () => void, item?: any })
           <div className="activity-item">
             <div className="activity-icon icon-green"><img src={ASSETS.play} style={{ width: '20px', filter: 'drop-shadow(0 2px 4px rgba(17, 241, 126, 0.4))' }} /></div>
             <div className="activity-text"><div className="activity-title">최고가 갱신!</div><div className="activity-sub">아이폰 14 프로 맥스 - 3분 전</div></div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
 
           <div className="activity-item">
             <div className="activity-icon icon-cyan"><img src={ASSETS.trophy} style={{ width: '20px', filter: 'drop-shadow(0 2px 4px rgba(15, 232, 245, 0.4))' }} /></div>
             <div className="activity-text"><div className="activity-title">경쟁자가 나타났어요!</div><div className="activity-sub">맥북 프로 16인치 M2 - 10분 전</div></div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
 
           <div className="activity-item">
             <div className="activity-icon icon-green"><img src={ASSETS.rocket} style={{ width: '20px', filter: 'drop-shadow(0 2px 4px rgba(17, 241, 126, 0.4))' }} /></div>
             <div className="activity-text"><div className="activity-title">새로운 특급 경매 시작</div><div className="activity-sub">다이슨 에어랩 상태 A급 - 15분 전</div></div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
         </section>
 

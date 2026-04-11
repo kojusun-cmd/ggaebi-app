@@ -223,7 +223,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
                   className="roadmap-close-btn pulse-glow"
                   onClick={() => setShowRoadmap(false)}
                 >
-                  닫기 <ChevronUp size={18} strokeWidth={3} />
+                  닫기 <ChevronUp size={20} strokeWidth={3} />
                 </button>
               </div>
             </div>
@@ -262,7 +262,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
 
       {/* 하단 네비게이션 */}
       <nav className="bottom-nav">
-        <div className="nav-item active" style={{cursor: 'pointer'}} onClick={resetToHome}><Home size={22} strokeWidth={2.5} /><span>홈</span></div>
+        <div className="nav-item active" style={{cursor: 'pointer'}} onClick={resetToHome}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
         <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate('registration')}>
           <Plus size={28} color="#fff" strokeWidth={3} />
@@ -274,7 +274,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
           </div>
           <span>채팅</span>
         </div>
-        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('user')}><User size={22} /><span>내 정보</span></div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('user')}><User size={24} /><span>내 정보</span></div>
       </nav>
     </>
     );

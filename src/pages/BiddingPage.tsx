@@ -19,6 +19,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             { ...FEED_ITEMS[14], endTime: Date.now() - 80000, tradeStatus: 'sold' } // 판매완료
           ]);
     const [showChatModal, setShowChatModal] = useState(false);
+    const [showPaymentSheet, setShowPaymentSheet] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const activeItems = FEED_ITEMS.slice(16, 20);
     return (
@@ -33,16 +34,16 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       </header>
 
       {/* 탭 네비게이션 */}
-      <div style={{ position: 'sticky', top: '65px', background: '#fff', zIndex: 40, borderBottom: '1px solid #E2E8F0', display: 'flex' }}>
+      <div style={{ position: 'sticky', top: '65px', background: '#fff', zIndex: 40, borderBottom: '1px solid #E2E8F0', display: 'flex', padding: '0 39px 0 45px' }}>
         <button 
           onClick={() => setActiveTab('progress')}
-          style={{ flex: 1, padding: '16px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 'bold', color: activeTab === 'progress' ? '#1E293B' : '#94A3B8', borderBottom: activeTab === 'progress' ? '2px solid #1E293B' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.2s' }}
+          style={{ flex: 1, padding: '16px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 'bold', color: activeTab === 'progress' ? '#1E293B' : '#94A3B8', borderBottom: activeTab === 'progress' ? '2px solid #1E293B' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.2s', textAlign: 'center' }}
         >
           입찰 진행 중
         </button>
         <button 
           onClick={() => setActiveTab('payment')}
-          style={{ flex: 1, padding: '16px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 'bold', color: activeTab === 'payment' ? '#1E293B' : '#94A3B8', borderBottom: activeTab === 'payment' ? '2px solid #1E293B' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.2s' }}
+          style={{ flex: 1, padding: '16px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 'bold', color: activeTab === 'payment' ? '#1E293B' : '#94A3B8', borderBottom: activeTab === 'payment' ? '2px solid #1E293B' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.2s', textAlign: 'center' }}
         >
           결제 대기
         </button>
@@ -55,40 +56,63 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             {/* 낙찰 성공 (최상단 강조) */}
             {wonItems.length > 0 && (
               <section style={{ marginBottom: '36px' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: 'bold', padding: '0 20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981' }}>
                   🎉 낙찰 성공! 결제를 진행해주세요
                 </h2>
                 <div className="feed-grid fade-slide-up">
                   {wonItems.map(item => (
-                    <div key={item.id} className="feed-card" style={{ cursor: 'pointer', border: '2px solid #10B981', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', background: '#F0FDF4' }} onClick={() => onNavigate('detail', item)}>
-                      <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
-                        <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
-                        <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #FDE68A 0%, #D97706 100%)', color: '#fff', fontSize: '13px', padding: '4px 10px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
-                          🏆 내게 낙찰됨
+                    <div key={item.id} style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '16px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
+                      <div className="feed-card" style={{ border: 'none', background: 'transparent', boxShadow: 'none', paddingBottom: 0 }} onClick={() => onNavigate('detail', item)}>
+                        <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
+                          <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
+                          <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #FDE68A 0%, #D97706 100%)', color: '#fff', fontSize: '13px', padding: '4px 10px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
+                            🏆 내게 낙찰됨
+                          </div>
+                        </div>
+                        <div className="feed-info" style={{ paddingBottom: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden', justifyContent: 'center' }}>
+                          <div className="feed-title" style={{ color: '#065F46', paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{item.title}</div>
+                          
+                          <div>
+                            <div className="feed-price" style={{ margin: 0, whiteSpace: 'nowrap' }}>
+                              {item.price}
+                            </div>
+                            <div style={{ marginTop: '2px' }}>
+                              <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#94A3B8' }}>(최종 낙찰가)</span>
+                            </div>
+                          </div>
+                            
+                          <div className="feed-meta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', paddingBottom: '2px', marginTop: '16px', whiteSpace: 'nowrap' }}>
+                            {!isExpired ? (
+                              <span style={{ color: '#EF4444', fontWeight: 'bold' }}>결제기한 <AuctionTimer endTime={paymentExpiry} /> 남음</span>
+                            ) : (
+                              <span style={{ color: '#DC2626', fontWeight: 'bold', fontSize: '12px' }}>기한 경과 (패널티 1회 🚨)</span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="feed-info" style={{ paddingBottom: '12px' }}>
-                        <div className="feed-title" style={{ color: '#065F46' }}>{item.title}</div>
-                        <div className="feed-price">{item.price} <span style={{fontSize:'12px', fontWeight:'normal', color:'#94A3B8'}}>(최종 낙찰가)</span></div>
-                        <div className="feed-meta" style={{ marginBottom: '12px' }}>
-                          {!isExpired ? (
-                            <span style={{ color: '#EF4444', fontWeight: 'bold' }}>결제 기한: <AuctionTimer endTime={paymentExpiry} /> 남음</span>
-                          ) : (
-                            <span style={{ color: '#DC2626', fontWeight: 'bold', fontSize: '13px' }}>결제 기한 경과 (낙찰 파기 패널티 1회 부여됨 🚨)</span>
-                          )}
-                        </div>
+
+                      {/* 하단 풀사이즈 안내 및 액션 영역 (옵션 1 구조) */}
+                      <div style={{ padding: '0 16px 16px 16px' }}>
                         {!isExpired ? (
-                          <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-                            <button style={{ flex: 1, padding: '10px', background: '#fff', color: '#059669', border: '1px solid #059669', borderRadius: '8px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setShowChatModal(true); }}>
-                              판매자와 채팅 💬
+                          <div style={{ display: 'flex', gap: '8px', width: '100%', marginBottom: '12px' }}>
+                            <button style={{ flex: 1, padding: '12px', background: '#fff', color: '#059669', border: '1px solid #059669', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setShowChatModal(true); }}>
+                              채팅 💬
                             </button>
-                            <button style={{ flex: 1, padding: '10px', background: '#10B981', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer', boxShadow: '0 2px 4px rgba(16,185,129,0.3)' }} onClick={(e) => { e.stopPropagation(); onNavigate('checkout', item); }}>
-                              즉시 결제하기 💳
+                            <button style={{ flex: 1, padding: '12px', background: '#10B981', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer', boxShadow: '0 2px 4px rgba(16,185,129,0.3)' }} onClick={(e) => { e.stopPropagation(); setShowPaymentSheet(true); }}>
+                              결제하기 💳
                             </button>
                           </div>
                         ) : (
-                          <div style={{ width: '100%', padding: '10px', background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', textAlign: 'center', fontSize: '13px', color: '#991B1B', fontWeight: 'bold', lineHeight: '1.4' }}>
-                            결제 미이행으로 자동 낙찰 취소 및<br/>삼진아웃 패널티가 1회 적립되었습니다.
+                          <div style={{ width: '100%', padding: '12px', background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '12px', textAlign: 'center', fontSize: '14px', color: '#991B1B', fontWeight: 'bold', lineHeight: '1.4', marginBottom: '12px' }}>
+                            자동 낙찰 취소 됨<br/>삼진아웃 패널티 1회 적립
+                          </div>
+                        )}
+
+                        {/* 강력한 법적/이용 제재 안내 문구박스 */}
+                        {!isExpired && (
+                          <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', padding: '12px 14px', borderRadius: '10px', fontSize: '12px', color: '#991B1B', lineHeight: '1.5', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                            <span style={{ fontSize: '16px', lineHeight: 1 }}>🚨</span>
+                            <span>결제 기한 내 미결제 시 낙찰이 <b>자동 취소</b>되며, <b>패널티 1회</b>가 부여됩니다. (누적 패널티 발생 시 플랫폼 이용 영구 제한 조치)</span>
                           </div>
                         )}
                       </div>
@@ -100,7 +124,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
             {/* 심사/결과 대기 중 영역 */}
             <section style={{ marginBottom: '36px' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 'bold', padding: '0 20px', marginBottom: '16px' }}>⏳ 결과 대기 및 거래 종료</h2>
+              <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px' }}>⏳ 결과 대기 및 거래 종료</h2>
               <div className="feed-grid fade-slide-up">
                 {completedItems.length > 0 ? (
                   completedItems.map(item => (
@@ -123,17 +147,27 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                             </div>
                           )}
                         </div>
-                        <div className="feed-info">
-                          <div className="feed-title">{item.title}</div>
-                          <div className="feed-price">{item.price} <span style={{fontSize:'12px', fontWeight:'normal', color:'#94A3B8'}}>(내 입찰가)</span></div>
-                          <div className="feed-meta">
-                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50' }}>경매 종료됨</span>
-                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: '600' }}>
-                              {item.tradeStatus === 'sold' ? '판매완료' : '다른 낙찰자가 거래중'}
+                        <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', paddingBottom: '4px', overflow: 'hidden', justifyContent: 'center' }}>
+                          <div className="feed-title" style={{ paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{item.title}</div>
+                          
+                          <div>
+                            <div className="feed-price" style={{ margin: 0, whiteSpace: 'nowrap' }}>
+                              {item.price}
+                            </div>
+                            <div style={{ marginTop: '2px' }}>
+                              <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#94A3B8' }}>(내 입찰가)</span>
+                            </div>
+                          </div>
+
+                          <div className="feed-meta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', paddingBottom: '2px', marginTop: '16px', whiteSpace: 'nowrap' }}>
+                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold' }}>경매종료</span>
+                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold', fontSize: '12px' }}>
+                              {item.tradeStatus === 'sold' ? '판매완료' : '다른회원 거래중'}
                             </span>
                           </div>
+
                           {item.tradeStatus === 'assessing' && (
-                            <div style={{ fontSize: '11px', color: '#64748B', marginTop: '8px', background: '#F1F5F9', padding: '8px', borderRadius: '6px', lineHeight: 1.4 }}>
+                            <div style={{ fontSize: '11px', color: '#64748B', marginTop: '12px', background: '#F1F5F9', padding: '8px', borderRadius: '6px', lineHeight: 1.4, wordBreak: 'keep-all' }}>
                               현재 최고가 낙찰자가 결제를 진행 중입니다.<br/>낙찰자가 포기할 경우, 대기자인 회원님께 안내됩니다.
                             </div>
                           )}
@@ -142,7 +176,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                     </SwipeToDeleteCard>
                   ))
                 ) : (
-                    <div style={{ padding: '20px', color: '#94A3B8', fontSize: '14px', textAlign: 'center' }}>결과 대기 중인 항목이 없습니다.</div>
+                    <div style={{ color: '#94A3B8', fontSize: '14px', textAlign: 'center' }}>결과 대기 중인 항목이 없습니다.</div>
                 )}
               </div>
             </section>
@@ -151,7 +185,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
         {activeTab === 'progress' && (
           <section>
-            <h2 style={{ fontSize: '18px', fontWeight: 'bold', padding: '0 20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '20px', filter: 'drop-shadow(1px 2px 2px rgba(0,0,0,0.2))' }}>🔨</span> 나의 입찰 진행중
             </h2>
             <div className="feed-grid fade-slide-up">
@@ -173,7 +207,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                   />
                 ))
               ) : (
-                  <div style={{ padding: '20px', color: '#94A3B8', fontSize: '14px', textAlign: 'center' }}>진행 중인 항목이 없습니다.</div>
+                  <div style={{ color: '#94A3B8', fontSize: '14px', textAlign: 'center' }}>진행 중인 항목이 없습니다.</div>
               )}
             </div>
           </section>
@@ -185,7 +219,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', zIndex: 999, display: 'flex', flexDirection: 'column' }}>
           <div style={{ background: '#fff', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div onClick={() => { setShowChatModal(false); setChatStep(0); }} style={{ cursor: 'pointer' }}><ChevronLeft size={24} /></div>
+              <div onClick={() => { setShowChatModal(false); setChatStep(0); }} style={{ cursor: 'pointer' }}><ChevronLeft size={28} /></div>
               <span style={{ fontWeight: 'bold', fontSize: '18px' }}>판매자 ({wonItems[0]?.title || '상품'})</span>
             </div>
           </div>
@@ -301,6 +335,41 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* 결제 진행 바텀 시트 */}
+      {showPaymentSheet && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', zIndex: 1000, display: 'flex', alignItems: 'flex-end', animation: 'fadeIn 0.2s ease-out' }} onClick={() => setShowPaymentSheet(false)}>
+          <div style={{ background: '#fff', width: '100%', borderRadius: '24px 24px 0 0', padding: '24px', animation: 'slideUp 0.3s ease-out' }} onClick={(e) => e.stopPropagation()}>
+            <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px' }}>결제 전 필수 확인사항</h3>
+            <p style={{ color: '#475569', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+              안전한 거래와 권리 보호를 위해 아래 내용을 숙지해주세요.
+            </p>
+            
+            <div style={{ background: '#F8FAFC', borderRadius: '12px', padding: '16px', marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <div style={{ flexShrink: 0, fontSize: '18px' }}>🔒</div>
+                <div style={{ fontSize: '13px', color: '#1E293B', lineHeight: '1.4' }}>
+                  <b>반드시 깨비옥션 안전결제</b>를 이용해주세요.<br/>외부 직거래 유도나 개인 계좌 송금 요구는 사기일 확률이 매우 높습니다.
+                </div>
+              </div>
+              <div style={{ width: '100%', height: '1px', background: '#E2E8F0' }}></div>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <div style={{ flexShrink: 0, fontSize: '18px' }}>⏰</div>
+                <div style={{ fontSize: '13px', color: '#1E293B', lineHeight: '1.4' }}>
+                  결제 기한(24시간)을 넘길 경우 <b>낙찰이 즉시 취소</b>되며 다음 대기자에게 권리가 넘어갑니다. (이 경우 패널티가 부과됩니다)
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => { setShowPaymentSheet(false); onNavigate('checkout', wonItems[0]); }}
+              style={{ width: '100%', padding: '16px', background: '#10B981', color: '#fff', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 12px rgba(16,185,129,0.3)' }}
+            >
+              확인했으며 결제 진행합니다
+            </button>
+          </div>
         </div>
       )}
     </>

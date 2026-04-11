@@ -120,7 +120,7 @@ function App() {
               <div className="activity-title">Live Auction</div>
               <div className="activity-sub">Used iPhone 13 7h ago</div>
             </div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
           
           <div className="activity-item">
@@ -131,7 +131,7 @@ function App() {
               <div className="activity-title">Place Your Bid!</div>
               <div className="activity-sub">Used iPhone 13h 2h ago</div>
             </div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
           
           <div className="activity-item">
@@ -142,7 +142,7 @@ function App() {
               <div className="activity-title">Dad Auction</div>
               <div className="activity-sub">Used iPhone 13h 2h ago</div>
             </div>
-            <ChevronRight size={18} color="#8A9CA8" />
+            <ChevronRight size={20} color="#8A9CA8" />
           </div>
         </section>
 

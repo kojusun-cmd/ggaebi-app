@@ -83,7 +83,7 @@ export function ChatListPage({ onBack, _onNavigate }: { onBack: () => void, _onN
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', zIndex: 999, display: 'flex', flexDirection: 'column' }}>
           <div style={{ background: '#fff', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div onClick={() => { setShowChatModal(false); setActiveChatRoom(null); }} style={{ cursor: 'pointer' }}><ChevronLeft size={24} /></div>
+              <div onClick={() => { setShowChatModal(false); setActiveChatRoom(null); }} style={{ cursor: 'pointer' }}><ChevronLeft size={28} /></div>
               <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{activeChatRoom.partner}</span>
             </div>
           </div>

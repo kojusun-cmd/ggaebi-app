@@ -118,7 +118,7 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
               )}
             </div>
             <div style={{ cursor: 'pointer' }}>
-              <ChevronRight size={24} color="#CBD5E1" />
+              <ChevronRight size={20} color="#CBD5E1" />
             </div>
           </div>
 
@@ -245,7 +245,7 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
                 {menu.badge && (
                   <span style={{ fontSize: '12px', background: '#F1F5F9', color: '#64748B', padding: '4px 10px', borderRadius: '12px', fontWeight: 'bold' }}>{menu.badge}</span>
                 )}
-                <ChevronRight size={18} color="#CBD5E1" />
+                <ChevronRight size={20} color="#CBD5E1" />
               </div>
             </div>
           ))}
@@ -254,7 +254,7 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
       </div>
 
       <nav className="bottom-nav">
-        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('home')}><Home size={22} strokeWidth={2.5} /><span>홈</span></div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('home')}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
         <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate('registration')}>
           <Plus size={28} color="#fff" strokeWidth={3} />
@@ -266,7 +266,7 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
           </div>
           <span>채팅</span>
         </div>
-        <div className="nav-item active" style={{cursor: 'pointer'}} ><User size={22} /><span>내 정보</span></div>
+        <div className="nav-item active" style={{cursor: 'pointer'}} ><User size={24} /><span>내 정보</span></div>
       </nav>
 
       <AuthBottomSheet 
