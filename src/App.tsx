@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { UserPage } from './pages/UserPage';
 import { SettingsPage } from './pages/SettingsPage';
@@ -34,6 +34,35 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAuthSheet, setShowAuthSheet] = useState(false);
 
+  useEffect(() => {
+    window.history.replaceState({ page: 'home', history: ['home'], item: null }, '');
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && e.state.page) {
+        const nextTarget = e.state.page;
+        const newHistory = e.state.history || ['home'];
+        
+        setHistory(newHistory);
+        setCurrentPage(nextTarget);
+        if (e.state.item !== undefined) {
+          setSelectedItem(e.state.item);
+        }
+
+        setTimeout(() => {
+          if (appWrapperRef.current) {
+            appWrapperRef.current.scrollTop = scrollPositions.current[nextTarget] || 0;
+          }
+        }, 0);
+      } else {
+        setCurrentPage('home');
+        setHistory(['home']);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleNavigate = (page: string, item?: any) => {
     // 보호된 페이지 목록 - 로그인 필요
     const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'user', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
@@ -47,8 +76,15 @@ function App() {
       scrollPositions.current[currentPage] = appWrapperRef.current.scrollTop;
     }
     
-    if (item) setSelectedItem(item);
-    setHistory(prev => [...prev, page]);
+    const finalItem = item !== undefined ? item : selectedItem;
+    if (item !== undefined) setSelectedItem(item);
+    
+    setHistory(prev => {
+        const newHistory = [...prev, page];
+        window.history.pushState({ page, history: newHistory, item: finalItem }, '');
+        return newHistory;
+    });
+
     setCurrentPage(page);
     setTimeout(() => {
       if (appWrapperRef.current) appWrapperRef.current.scrollTop = 0;
@@ -56,36 +92,7 @@ function App() {
   };
 
   const handleBack = () => {
-    setHistory(prev => {
-      let nextTarget = 'home';
-      const sourcePage = prev[prev.length - 1];
-      if (prev.length > 1) {
-        const newHistory = prev.slice(0, -1);
-        nextTarget = newHistory[newHistory.length - 1];
-        setCurrentPage(nextTarget as any);
-        setTimeout(() => {
-          if (appWrapperRef.current) {
-            if (nextTarget === 'home' && ['wishlist', 'bidding', 'chat', 'user'].includes(sourcePage)) {
-              appWrapperRef.current.scrollTop = 0;
-            } else {
-              appWrapperRef.current.scrollTop = scrollPositions.current[nextTarget] || 0;
-            }
-          }
-        }, 0);
-        return newHistory;
-      }
-      setCurrentPage('home');
-      setTimeout(() => {
-        if (appWrapperRef.current) {
-          if (['wishlist', 'bidding', 'chat', 'user'].includes(sourcePage)) {
-            appWrapperRef.current.scrollTop = 0;
-          } else {
-            appWrapperRef.current.scrollTop = scrollPositions.current['home'] || 0;
-          }
-        }
-      }, 0);
-      return ['home'];
-    });
+    window.history.back();
   };
 
   return (
