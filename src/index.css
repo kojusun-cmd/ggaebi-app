@@ -503,7 +503,7 @@ h1, h2, h3, h4 {
 
 .roadmap-tabs {
   display: flex;
-  background: #f1f5f9;
+  background: #E2E8F0;
   border-radius: var(--radius-lg);
   margin-bottom: 24px;
   padding: 6px;
@@ -513,17 +513,17 @@ h1, h2, h3, h4 {
   flex: 1;
   text-align: center;
   padding: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-weight: 800;
+  color: #64748B;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 15px;
 }
 .roadmap-tab.active {
-  background: var(--bg-white);
-  box-shadow: var(--shadow-sm);
-  color: var(--primary-accent);
+  background: linear-gradient(90deg, var(--cyan-primary), var(--goblin-fire));
+  color: #1A1D24;
+  box-shadow: 0 4px 15px rgba(17, 241, 126, 0.3);
 }
 
 .feed-grid {
@@ -658,7 +658,7 @@ h1, h2, h3, h4 {
   align-items: stretch;
 }
 .roadmap-main {
-  width: 100px;
+  width: 76px;
   background: linear-gradient(135deg, #2E343E, #1A1D24);
   color: white;
   display: flex;
@@ -667,13 +667,13 @@ h1, h2, h3, h4 {
   justify-content: center;
   text-align: center;
   font-weight: 800;
-  font-size: 14px;
-  padding: 16px 10px;
+  font-size: 13px;
+  padding: 14px 6px;
   flex-shrink: 0;
-  gap: 8px;
+  gap: 6px;
 }
 .roadmap-icon {
-  font-size: 28px;
+  font-size: 26px;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
 }
 .roadmap-subs {
