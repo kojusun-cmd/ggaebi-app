@@ -1,5 +1,5 @@
 import { Search, Bell, ChevronUp, Home, Gavel, Plus, MessageCircle, User } from "lucide-react";
-import { useState, useRef, useEffect, type MouseEvent } from "react";
+import { useState, useRef, useEffect, useCallback, type MouseEvent } from "react";
 import { usePopupHistory } from "../hooks/usePopupHistory";
 import { CATEGORY_MAP, REGION_MAP } from "../data/constants";
 import { HOT_DEALS, FEED_ITEMS } from "../data/mockData";
@@ -15,7 +15,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
 
     usePopupHistory(
       showRoadmap,
-      () => setShowRoadmap(false),
+      useCallback(() => setShowRoadmap(false), []),
       'MainPage_Roadmap'
     );
 
