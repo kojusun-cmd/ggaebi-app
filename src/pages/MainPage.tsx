@@ -82,7 +82,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
 
       <div className="content-area">
         {/* 히어로 배너 (자동 롤링 배너) */}
-        <section className="hero-banner glassmorphism" onClick={() => onNavigate('detail', currentDeal)} style={{cursor: 'pointer'}}>
+        <section className={`hero-banner glassmorphism ${showRoadmap ? 'collapsed' : ''}`} onClick={() => onNavigate('detail', currentDeal)} style={{cursor: 'pointer'}}>
           <div className="hero-content">
             <div className="hero-tag pulse-glow">
               마감 임박 <AuctionTimer endTime={currentDeal.endTime} />

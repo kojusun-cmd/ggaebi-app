@@ -299,6 +299,17 @@ h1, h2, h3, h4 {
   position: relative;
   overflow: hidden;
   color: #FFFFFF;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.hero-banner.glassmorphism.collapsed {
+  min-height: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  opacity: 0;
+  border: 0;
+  pointer-events: none;
 }
 .hero-banner.glassmorphism::before {
   content: ''; position: absolute;
@@ -622,7 +633,7 @@ h1, h2, h3, h4 {
 }
 .curtain-inner {
   overflow-y: auto;
-  max-height: calc(100vh - 260px); /* Leave room for header, tab, and bottom nav */
+  max-height: calc(100vh - 170px); /* Expanded to utilize the space freed by the collapsed hero banner */
   scrollbar-width: none;
   padding: 0 20px 24px 20px; /* Offset to perfectly match the -8px line while guarding shadow */
 }
