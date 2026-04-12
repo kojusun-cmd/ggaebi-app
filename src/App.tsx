@@ -120,27 +120,29 @@ function App() {
   };
 
   return (
-    <div className="app-wrapper" ref={appWrapperRef}>
-      {currentPage === 'home' && <MainPage onNavigate={handleNavigate} appWrapperRef={appWrapperRef} />}
-      {currentPage === 'search' && <SearchPage onNavigate={handleNavigate} onBack={handleBack} />}
-      {currentPage === 'registration' && <ProductRegistrationPage onBack={handleBack} onComplete={() => handleNavigate('home')} />}
-      {currentPage === 'detail' && <DetailPage item={selectedItem} onBack={handleBack} />}
-      {currentPage === 'wishlist' && <WishlistPage onNavigate={handleNavigate} onBack={handleBack} />}
-      {currentPage === 'bidding' && <BiddingPage onNavigate={handleNavigate} onBack={handleBack} initialTab={selectedItem?.tab} />}
-      {currentPage === 'chat' && <ChatListPage onNavigate={handleNavigate} onBack={handleBack} />}
-      {currentPage === 'user' && <UserPage onNavigate={handleNavigate} onBack={handleBack} />}
-      {currentPage === 'settings' && <SettingsPage onBack={handleBack} onNavigate={handleNavigate} />}
-      {currentPage === 'guide_penalty' && <PenaltyGuidePage onBack={handleBack} />}
-      {currentPage === 'guide_restricted' && <RestrictedItemGuidePage onBack={handleBack} />}
-      {currentPage === 'notifications' && <NotificationPage onBack={handleBack} />}
-      {currentPage === 'email_login' && <EmailLoginPage onBack={handleBack} onComplete={() => { setIsLoggedIn(true); handleNavigate('home'); }} />}
-      {currentPage === 'email_signup' && <EmailSignupPage onBack={handleBack} onComplete={() => { setIsLoggedIn(true); handleNavigate('home'); }} />}
-      {currentPage === 'profile_edit' && <ProfileEditPage onBack={handleBack} onComplete={handleBack} />}
-      {currentPage === 'won_history' && <WonHistoryPage onBack={handleBack} onNavigate={handleNavigate} />}
-      {currentPage === 'sales_history' && <SalesHistoryPage onBack={handleBack} onNavigate={handleNavigate} />}
-      {currentPage === 'wallet' && <WalletPage onBack={handleBack} />}
-      {currentPage === 'payment_methods' && <PaymentMethodPage onBack={handleBack} onNavigate={handleNavigate} />}
-      {currentPage === 'checkout' && <CheckoutPage onBack={handleBack} onNavigate={handleNavigate} item={selectedItem} />}
+    <>
+      <div className="app-wrapper" ref={appWrapperRef}>
+        {currentPage === 'home' && <MainPage onNavigate={handleNavigate} appWrapperRef={appWrapperRef} />}
+        {currentPage === 'search' && <SearchPage onNavigate={handleNavigate} onBack={handleBack} />}
+        {currentPage === 'registration' && <ProductRegistrationPage onBack={handleBack} onComplete={() => handleNavigate('home')} />}
+        {currentPage === 'detail' && <DetailPage item={selectedItem} onBack={handleBack} />}
+        {currentPage === 'wishlist' && <WishlistPage onNavigate={handleNavigate} onBack={handleBack} />}
+        {currentPage === 'bidding' && <BiddingPage onNavigate={handleNavigate} onBack={handleBack} initialTab={selectedItem?.tab} />}
+        {currentPage === 'chat' && <ChatListPage onNavigate={handleNavigate} onBack={handleBack} />}
+        {currentPage === 'user' && <UserPage onNavigate={handleNavigate} onBack={handleBack} />}
+        {currentPage === 'settings' && <SettingsPage onBack={handleBack} onNavigate={handleNavigate} />}
+        {currentPage === 'guide_penalty' && <PenaltyGuidePage onBack={handleBack} />}
+        {currentPage === 'guide_restricted' && <RestrictedItemGuidePage onBack={handleBack} />}
+        {currentPage === 'notifications' && <NotificationPage onBack={handleBack} />}
+        {currentPage === 'email_login' && <EmailLoginPage onBack={handleBack} onComplete={() => { setIsLoggedIn(true); handleNavigate('home'); }} />}
+        {currentPage === 'email_signup' && <EmailSignupPage onBack={handleBack} onComplete={() => { setIsLoggedIn(true); handleNavigate('home'); }} />}
+        {currentPage === 'profile_edit' && <ProfileEditPage onBack={handleBack} onComplete={handleBack} />}
+        {currentPage === 'won_history' && <WonHistoryPage onBack={handleBack} onNavigate={handleNavigate} />}
+        {currentPage === 'sales_history' && <SalesHistoryPage onBack={handleBack} onNavigate={handleNavigate} />}
+        {currentPage === 'wallet' && <WalletPage onBack={handleBack} />}
+        {currentPage === 'payment_methods' && <PaymentMethodPage onBack={handleBack} onNavigate={handleNavigate} />}
+        {currentPage === 'checkout' && <CheckoutPage onBack={handleBack} onNavigate={handleNavigate} item={selectedItem} />}
+      </div>
 
       {/* Auth Bottom Sheet */}
       <AuthBottomSheet 
@@ -160,7 +162,7 @@ function App() {
           setTimeout(() => handleNavigate('email_signup'), 0);
         }}
       />
-    </div>
+    </>
   );
 }
 
