@@ -636,7 +636,7 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-lg);
   padding: 24px 20px;
   box-shadow: 0 10px 40px rgba(46,52,62,0.05);
-  margin: 0 -8px 24px -8px;
+  margin: 0 -16px 24px -16px;
 }
 .roadmap-title {
   font-size: 19px;
