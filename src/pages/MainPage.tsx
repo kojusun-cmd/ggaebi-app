@@ -1,4 +1,4 @@
-import { Search, Bell, ChevronUp, Home, Gavel, Plus, MessageCircle, User } from "lucide-react";
+import { Search, Bell, ChevronUp, Home, Gavel, Plus, MessageCircle, User, RefreshCw } from "lucide-react";
 import { useState, useRef, useEffect, useCallback, type MouseEvent } from "react";
 import { usePopupHistory } from "../hooks/usePopupHistory";
 import { CATEGORY_MAP, REGION_MAP } from "../data/constants";
@@ -12,6 +12,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
     const [roadmapTab, setRoadmapTab] = useState<'category' | 'region'>('category');
     const [showRoadmap, setShowRoadmap] = useState(false);
     const [dealIdx, setDealIdx] = useState(0);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     usePopupHistory(
       showRoadmap,
@@ -51,12 +52,19 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
     }, []);
     const currentDeal = HOT_DEALS[dealIdx];
     const resetToHome = () => {
+            if (isRefreshing) return;
+            setIsRefreshing(true);
             setActiveCategory('전체');
             setActiveRegion('전체');
             setShowRoadmap(false);
             setDealIdx(0);
             startBannerTimer();
             appWrapperRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // 모의 API 리패치 딜레이 (자연스러운 UX 제공)
+            setTimeout(() => {
+              setIsRefreshing(false);
+            }, 800);
           };
     return (
     <>
@@ -80,7 +88,24 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
         </div>
       </header>
 
-      <div className="content-area">
+      {/* 리프레시 로딩 스피너 (상단 고정) */}
+      <div 
+        style={{ 
+          position: 'absolute', top: '70px', left: '0', right: '0', 
+          display: 'flex', justifyContent: 'center', 
+          opacity: isRefreshing ? 1 : 0, 
+          transform: isRefreshing ? 'translateY(10px)' : 'translateY(-10px)',
+          transition: 'all 0.4s ease',
+          pointerEvents: 'none',
+          zIndex: 50
+        }}
+      >
+        <div style={{ background: 'white', padding: '8px', borderRadius: '50%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+          <RefreshCw size={20} color="#00A65F" className={isRefreshing ? 'spin-anim' : ''} />
+        </div>
+      </div>
+
+      <div className={`content-area ${isRefreshing ? 'refreshing-state' : ''}`}>
         {/* 히어로 배너 (자동 롤링 배너) */}
         <section className={`hero-banner glassmorphism ${showRoadmap ? 'collapsed' : ''}`} onClick={() => onNavigate('detail', currentDeal)} style={{cursor: 'pointer'}}>
           <div className="hero-content">

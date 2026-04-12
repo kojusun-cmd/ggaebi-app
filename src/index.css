@@ -753,3 +753,19 @@ h1, h2, h3, h4 {
   color: #1A1D24;
   box-shadow: 0 4px 15px rgba(69, 220, 187, 0.4);
 }
+
+/* API Refetch 모의 딜레이 애니메이션 */
+.refreshing-state {
+  opacity: 0.6;
+  transform: translateY(15px);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+@keyframes spin-anim {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin-anim {
+  animation: spin-anim 1s linear infinite;
+}
