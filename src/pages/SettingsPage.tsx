@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePopupHistory } from "../hooks/usePopupHistory";
 import { CustomToggle } from "../components/CustomToggle";
 
-export function SettingsPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string) => void }) {
+export function SettingsPage({ onBack, onNavigate, onLogout }: { onBack: () => void, onNavigate: (page: string) => void, onLogout: () => void }) {
     const [toggles, setToggles] = useState({
             outbid: true,
             deadline: true,
