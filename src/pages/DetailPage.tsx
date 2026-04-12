@@ -1,11 +1,33 @@
 import { ChevronLeft, Heart, Bell, MapPin, ChevronRight } from "lucide-react";
 import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js';
 import { ASSETS } from "../data/constants";
 import { HOT_DEALS } from "../data/mockData";
 import { useState } from "react";
 import { AuctionTimer } from "../components/AuctionTimer";
 import { BiddingBottomSheet } from "../components/BiddingBottomSheet";
 import { useNow } from "../hooks/useNow";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 export function DetailPage({ onBack, item }: { onBack: () => void, item?: any }) {
     const [showBiddingSheet, setShowBiddingSheet] = useState(false);
