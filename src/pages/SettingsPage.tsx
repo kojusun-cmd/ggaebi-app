@@ -179,7 +179,9 @@ export function SettingsPage({ onBack, onNavigate }: { onBack: () => void, onNav
                 <button 
                   onClick={() => {
                     setShowLogoutConfirm(false);
-                    onNavigate('user');
+                    alert('로그아웃이 되었습니다.');
+                    onLogout();
+                    window.location.reload();
                   }}
                   style={{ width: '100%', padding: '14px', borderRadius: '14px', background: '#F1F5F9', color: '#64748B', border: 'none', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}
                 >
