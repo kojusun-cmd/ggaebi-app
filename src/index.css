@@ -288,7 +288,7 @@ h1, h2, h3, h4 {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.1);
   padding: 20px 16px; 
-  margin: 0 -16px; /* Widen banner horizontally */
+  margin: 0 -8px; /* Widen banner horizontally */
   min-height: 180px; 
   align-items: flex-start;
   display: flex;
