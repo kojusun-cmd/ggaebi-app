@@ -85,6 +85,10 @@ body {
   flex: 1 0 auto;
 }
 
+.content-area.subpage {
+  padding: 0 24px 45px 24px;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Pretendard', sans-serif;
   color: var(--text-dark);
@@ -101,6 +105,10 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.top-header.subpage {
+  padding: 24px 24px 16px 24px;
 }
 
 /* --- LOGO STYLES (Premium Tech Vibe) --- */

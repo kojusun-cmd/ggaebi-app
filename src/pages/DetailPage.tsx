@@ -185,7 +185,7 @@ export function DetailPage({ onBack, item }: { onBack: () => void, item?: any })
         item={item} 
         onBidSubmit={handleNewBid}
       />
-      <header className="top-header">
+      <header className="top-header subpage">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -198,7 +198,7 @@ export function DetailPage({ onBack, item }: { onBack: () => void, item?: any })
         </div>
       </header>
 
-      <div className="content-area">
+      <div className="content-area subpage">
         <section className="card">
           <div className="product-img-box" style={{ overflow: 'hidden', padding: 0 }}>
             <img 

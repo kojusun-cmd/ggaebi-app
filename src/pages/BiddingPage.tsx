@@ -29,7 +29,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -54,7 +54,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
         </button>
       </div>
 
-      <div className="content-area" style={{ paddingTop: '16px', paddingBottom: '100px' }}>
+      <div className="content-area subpage" style={{ paddingTop: '16px', paddingBottom: '100px' }}>
         
         {activeTab === 'payment' && (
           <>

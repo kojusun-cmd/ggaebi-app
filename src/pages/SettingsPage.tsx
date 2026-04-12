@@ -41,7 +41,7 @@ export function SettingsPage({ onBack, onNavigate, onLogout }: { onBack: () => v
           );
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -50,7 +50,7 @@ export function SettingsPage({ onBack, onNavigate, onLogout }: { onBack: () => v
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh' }}>
         
         <SectionTitle>🔔 경매 특화 알림 설정</SectionTitle>
         <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>

@@ -36,7 +36,7 @@ export function CheckoutPage({ onBack, item }: CheckoutPageProps) {
 
   return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', borderBottom: '1px solid #E2E8F0', zIndex: 50 }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', borderBottom: '1px solid #E2E8F0', zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -45,7 +45,7 @@ export function CheckoutPage({ onBack, item }: CheckoutPageProps) {
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '56px', paddingBottom: '120px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '56px', paddingBottom: '120px', background: '#F8FAFC', minHeight: '100vh' }}>
         
         {/* 1. 최종 낙찰 상품 요약 */}
         <div style={{ background: '#fff', padding: '24px 20px', marginBottom: '12px' }}>

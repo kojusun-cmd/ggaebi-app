@@ -32,7 +32,7 @@ export function WonHistoryPage({ onBack, onNavigate }: { onBack: () => void, onN
 
   return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -41,7 +41,7 @@ export function WonHistoryPage({ onBack, onNavigate }: { onBack: () => void, onN
         </div>
       </header>
       
-      <div className="content-area" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
         
         {/* AI 분석 위젯 */}
         <section className="fade-slide-up" style={{ margin: '20px', background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)', borderRadius: '24px', padding: '24px', boxShadow: '0 8px 32px rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>

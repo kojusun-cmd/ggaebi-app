@@ -9,7 +9,7 @@ export function NotificationPage({ onBack }: { onBack: () => void }) {
           ];
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -17,7 +17,7 @@ export function NotificationPage({ onBack }: { onBack: () => void }) {
           <h1 className="header-title" style={{ fontSize: '18px' }}>알림 메세지</h1>
         </div>
       </header>
-      <div className="content-area" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh' }}>
         {notis.map((noti, idx) => (
           <div key={idx} style={{ padding: '16px 20px', background: noti.bg, borderBottom: '1px solid #F1F5F9', position: 'relative', cursor: 'pointer' }}>
             {noti.dot && <div style={{ position: 'absolute', top: '24px', left: '10px', width: '6px', height: '6px', borderRadius: '50%', background: '#EF4444' }} />}

@@ -12,7 +12,7 @@ export function SalesHistoryPage({ onBack, onNavigate }: { onBack: () => void, o
 
   return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -34,7 +34,7 @@ export function SalesHistoryPage({ onBack, onNavigate }: { onBack: () => void, o
         </div>
       </div>
 
-      <div className="content-area" style={{ paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh', paddingTop: '24px' }}>
+      <div className="content-area subpage" style={{ paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh', paddingTop: '24px' }}>
         
         {activeTab === 'selling' && (
           <div style={{ padding: '0 20px' }}>

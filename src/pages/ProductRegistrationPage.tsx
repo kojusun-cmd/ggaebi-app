@@ -26,7 +26,7 @@ export function ProductRegistrationPage({ onBack, onComplete }: { onBack: () => 
           };
     return (
     <>
-      <header className="top-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header className="top-header subpage" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={step === 1 ? onBack : () => setStep(s => s - 1)} style={{ cursor: 'pointer', paddingRight: '12px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -35,7 +35,7 @@ export function ProductRegistrationPage({ onBack, onComplete }: { onBack: () => 
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '80px', paddingBottom: '100px', minHeight: '100vh', background: '#F8FAFC' }}>
+      <div className="content-area subpage" style={{ paddingTop: '80px', paddingBottom: '100px', minHeight: '100vh', background: '#F8FAFC' }}>
         
         {/* Step 1: 스마트 사진 스튜디오 */}
         {step === 1 && (

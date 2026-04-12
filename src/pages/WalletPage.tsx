@@ -19,7 +19,7 @@ export function WalletPage({ onBack }: { onBack: () => void }) {
 
   return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -28,7 +28,7 @@ export function WalletPage({ onBack }: { onBack: () => void }) {
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
         
         {/* 잔액 종합 상태 카드 */}
         <div style={{ background: '#2E343E', padding: '24px', color: '#fff' }}>

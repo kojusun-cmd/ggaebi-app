@@ -56,7 +56,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
           ];
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -65,7 +65,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '80px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '80px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {chatRooms.map(room => (
             <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => { setActiveChatRoom(room); setChatStep(room.status === 'penalty' ? 5 : room.status === 'success' ? 4 : 0); setShowChatModal(true); }}>

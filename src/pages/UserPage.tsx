@@ -45,7 +45,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
 
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -59,7 +59,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
       </header>
       
       {/* 바디 */}
-      <div className="content-area" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
+      <div className="content-area subpage" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
         
         {!isLoggedIn ? (
           <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>

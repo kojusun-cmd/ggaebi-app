@@ -6,7 +6,7 @@ export function WishlistPage({ onBack, onNavigate }: { onBack: () => void, onNav
     const wishlistItems = FEED_ITEMS.filter(item => item.urgent).slice(0, 8);
     return (
     <>
-      <header className="top-header">
+      <header className="top-header subpage">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -15,7 +15,7 @@ export function WishlistPage({ onBack, onNavigate }: { onBack: () => void, onNav
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '80px', paddingBottom: '100px' }}>
+      <div className="content-area subpage" style={{ paddingTop: '80px', paddingBottom: '100px' }}>
         <div className="feed-grid fade-slide-up">
           {wishlistItems.length > 0 ? (
             wishlistItems.map(item => (

@@ -39,7 +39,7 @@ export function PaymentMethodPage({ onBack }: { onBack: () => void, onNavigate: 
 
   return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#F8FAFC', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0', position: 'fixed', width: '100%', maxWidth: '420px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -48,7 +48,7 @@ export function PaymentMethodPage({ onBack }: { onBack: () => void, onNavigate: 
         </div>
       </header>
 
-      <div className="content-area" style={{ paddingTop: '16px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '16px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
         
         <div style={{ marginBottom: '24px', padding: '0 8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#64748B', fontWeight: 'bold', fontSize: '14px', marginBottom: '8px' }}>

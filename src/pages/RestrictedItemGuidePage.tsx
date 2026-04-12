@@ -3,7 +3,7 @@ import { ChevronLeft } from "lucide-react";
 export function RestrictedItemGuidePage({ onBack }: { onBack: () => void }) {
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
+      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: '1px solid #E2E8F0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -11,7 +11,7 @@ export function RestrictedItemGuidePage({ onBack }: { onBack: () => void }) {
           <h1 className="header-title" style={{ fontSize: '18px' }}>경매 거래 금지 품목</h1>
         </div>
       </header>
-      <div className="content-area" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh', padding: '76px 20px 40px 20px' }}>
+      <div className="content-area subpage" style={{ paddingTop: '56px', paddingBottom: '40px', background: '#F8FAFC', minHeight: '100vh', padding: '76px 20px 40px 20px' }}>
         
         <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.5, marginBottom: '24px' }}>
           안전하고 깨끗한 경매 환경을 위해 아래 품목은 <strong>등록이 엄격히 금지</strong>됩니다. 발견 시 즉시 블라인드 처리 및 패널티가 부과될 수 있습니다.
