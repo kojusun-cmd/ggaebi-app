@@ -33,11 +33,29 @@ function App() {
   // Auth States
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAuthSheet, setShowAuthSheet] = useState(false);
+  const showAuthSheetRef = useRef(showAuthSheet);
+
+  useEffect(() => {
+    showAuthSheetRef.current = showAuthSheet;
+  }, [showAuthSheet]);
+
+  const closeAuthSheet = () => {
+    if (window.history.state?.sheet === 'auth') {
+      window.history.back();
+    } else {
+      setShowAuthSheet(false);
+    }
+  };
 
   useEffect(() => {
     window.history.replaceState({ page: 'home', history: ['home'], item: null }, '');
 
     const handlePopState = (e: PopStateEvent) => {
+      if (showAuthSheetRef.current) {
+        setShowAuthSheet(false);
+        return; // 바텀시트만 닫고 페이지 전환이나 스크롤 변경은 하지 않음
+      }
+
       if (e.state && e.state.page) {
         const nextTarget = e.state.page;
         const newHistory = e.state.history || ['home'];
@@ -68,6 +86,7 @@ function App() {
     const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'user', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
     
     if (protectedPages.includes(page) && !isLoggedIn) {
+      window.history.pushState({ ...window.history.state, sheet: 'auth' }, '');
       setShowAuthSheet(true);
       return; 
     }
@@ -81,10 +100,15 @@ function App() {
     
     setHistory(prev => {
         const newHistory = [...prev, page];
-        window.history.pushState({ page, history: newHistory, item: finalItem }, '');
+        if (window.history.state?.sheet === 'auth') {
+          window.history.replaceState({ page, history: newHistory, item: finalItem }, '');
+        } else {
+          window.history.pushState({ page, history: newHistory, item: finalItem }, '');
+        }
         return newHistory;
     });
 
+    setShowAuthSheet(false);
     setCurrentPage(page);
     setTimeout(() => {
       if (appWrapperRef.current) appWrapperRef.current.scrollTop = 0;
@@ -121,19 +145,19 @@ function App() {
       {/* Auth Bottom Sheet */}
       <AuthBottomSheet 
         isOpen={showAuthSheet} 
-        onClose={() => setShowAuthSheet(false)}
+        onClose={closeAuthSheet}
         onLogin={() => {
           setIsLoggedIn(true);
-          setShowAuthSheet(false);
+          closeAuthSheet();
           alert('로그인되었습니다!\n(현재는 데모 상태입니다)');
         }}
         onEmailLogin={() => {
-          setShowAuthSheet(false);
-          handleNavigate('email_login');
+          closeAuthSheet();
+          setTimeout(() => handleNavigate('email_login'), 0);
         }}
         onEmailSignup={() => {
-          setShowAuthSheet(false);
-          handleNavigate('email_signup');
+          closeAuthSheet();
+          setTimeout(() => handleNavigate('email_signup'), 0);
         }}
       />
     </div>
