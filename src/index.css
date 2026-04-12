@@ -446,7 +446,7 @@ h1, h2, h3, h4 {
 
 .sticky-header-container {
   position: sticky;
-  top: 98px;
+  top: 82px;
   z-index: 45;
 }
 
