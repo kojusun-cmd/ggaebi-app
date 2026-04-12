@@ -95,7 +95,7 @@ h1, h2, h3, h4 {
 }
 
 .top-header {
-  padding: 24px 39px 16px 45px; /* Left aligned to 45px, Right aligned to 39px (45px visual) */
+  padding: 14px 39px 10px 45px; /* Left aligned to 45px, Right aligned to 39px (45px visual), reduced vertical padding */
   position: sticky;
   top: 0;
   background: rgba(248, 250, 252, 0.85);
@@ -108,7 +108,7 @@ h1, h2, h3, h4 {
 }
 
 .top-header.subpage {
-  padding: 24px 24px 16px 24px;
+  padding: 14px 24px 10px 24px;
 }
 
 /* --- LOGO STYLES (Premium Tech Vibe) --- */
