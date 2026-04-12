@@ -31,31 +31,28 @@ function App() {
   const scrollPositions = useRef<Record<string, number>>({});
 
   // Auth States
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('ggaebi_isLoggedIn') === 'true';
+  });
   const [showAuthSheet, setShowAuthSheet] = useState(false);
-  const showAuthSheetRef = useRef(showAuthSheet);
 
   useEffect(() => {
-    showAuthSheetRef.current = showAuthSheet;
-  }, [showAuthSheet]);
-
-  const closeAuthSheet = () => {
-    if (window.history.state?.sheet === 'auth') {
-      window.history.back();
+    if (isLoggedIn) {
+      localStorage.setItem('ggaebi_isLoggedIn', 'true');
     } else {
-      setShowAuthSheet(false);
+      localStorage.removeItem('ggaebi_isLoggedIn');
     }
-  };
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    window.history.replaceState({ page: 'home', history: ['home'], item: null }, '');
+    // 최초 구동 시 메인 히스토리 주입 (가짜)
+    if (!window.history.state || !window.history.state.page) {
+      window.history.replaceState({ page: 'home', history: ['home'], item: null }, '');
+    }
 
     const handlePopState = (e: PopStateEvent) => {
-      if (showAuthSheetRef.current) {
-        setShowAuthSheet(false);
-        return; // 바텀시트만 닫고 페이지 전환이나 스크롤 변경은 하지 않음
-      }
-
+      // 팝업들은 usePopupHistory 훅에서 자체적으로 닫히므로, 
+      // 앱 라우터는 안전하게 e.state.page만 보고 페이지를 전환하면 됨.
       if (e.state && e.state.page) {
         const nextTarget = e.state.page;
         const newHistory = e.state.history || ['home'];
@@ -82,11 +79,10 @@ function App() {
   }, []);
 
   const handleNavigate = (page: string, item?: any) => {
-    // 보호된 페이지 목록 - 로그인 필요
-    const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'user', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
+    // 보호된 페이지 목록 - 로그인 필요 (user는 자체적으로 로그인 UI를 보여주므로 제외)
+    const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
     
     if (protectedPages.includes(page) && !isLoggedIn) {
-      window.history.pushState({ ...window.history.state, sheet: 'auth' }, '');
       setShowAuthSheet(true);
       return; 
     }
@@ -100,7 +96,8 @@ function App() {
     
     setHistory(prev => {
         const newHistory = [...prev, page];
-        if (window.history.state?.sheet === 'auth') {
+        // 팝업이 띄워진 상태에서 페이지 이동을 요청한 경우 (팝업 히스토리를 덮어씌움)
+        if (window.history.state?.popup) {
           window.history.replaceState({ page, history: newHistory, item: finalItem }, '');
         } else {
           window.history.pushState({ page, history: newHistory, item: finalItem }, '');
@@ -129,8 +126,8 @@ function App() {
         {currentPage === 'wishlist' && <WishlistPage onNavigate={handleNavigate} onBack={handleBack} />}
         {currentPage === 'bidding' && <BiddingPage onNavigate={handleNavigate} onBack={handleBack} initialTab={selectedItem?.tab} />}
         {currentPage === 'chat' && <ChatListPage onNavigate={handleNavigate} onBack={handleBack} />}
-        {currentPage === 'user' && <UserPage onNavigate={handleNavigate} onBack={handleBack} />}
-        {currentPage === 'settings' && <SettingsPage onBack={handleBack} onNavigate={handleNavigate} />}
+        {currentPage === 'user' && <UserPage onNavigate={handleNavigate} onBack={handleBack} isLoggedIn={isLoggedIn} onLogin={() => setIsLoggedIn(true)} />}
+        {currentPage === 'settings' && <SettingsPage onBack={handleBack} onNavigate={handleNavigate} onLogout={() => { setIsLoggedIn(false); handleNavigate('home'); }} />}
         {currentPage === 'guide_penalty' && <PenaltyGuidePage onBack={handleBack} />}
         {currentPage === 'guide_restricted' && <RestrictedItemGuidePage onBack={handleBack} />}
         {currentPage === 'notifications' && <NotificationPage onBack={handleBack} />}
@@ -147,19 +144,19 @@ function App() {
       {/* Auth Bottom Sheet */}
       <AuthBottomSheet 
         isOpen={showAuthSheet} 
-        onClose={closeAuthSheet}
+        onClose={() => setShowAuthSheet(false)}
         onLogin={() => {
           setIsLoggedIn(true);
-          closeAuthSheet();
+          setShowAuthSheet(false);
           alert('로그인되었습니다!\n(현재는 데모 상태입니다)');
         }}
         onEmailLogin={() => {
-          closeAuthSheet();
-          setTimeout(() => handleNavigate('email_login'), 0);
+          setShowAuthSheet(false);
+          handleNavigate('email_login');
         }}
         onEmailSignup={() => {
-          closeAuthSheet();
-          setTimeout(() => handleNavigate('email_signup'), 0);
+          setShowAuthSheet(false);
+          handleNavigate('email_signup');
         }}
       />
     </>

@@ -1,10 +1,17 @@
 import { useState } from 'react';
+import { usePopupHistory } from '../hooks/usePopupHistory';
 import { ChevronLeft, Award, Star } from 'lucide-react';
 import { FEED_ITEMS } from '../data/mockProducts';
 
 export function WonHistoryPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string, item?: any) => void }) {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showReviewSheet, setShowReviewSheet] = useState(false);
+
+  usePopupHistory(
+    showReviewSheet,
+    () => setShowReviewSheet(false),
+    'WonHistory_ReviewSheet'
+  );
 
   // Mock won items
   const wonItems = FEED_ITEMS.slice(0, 3).map((item, idx) => ({

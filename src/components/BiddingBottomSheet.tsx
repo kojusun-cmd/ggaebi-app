@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, AlertTriangle } from 'lucide-react';
+import { usePopupHistory } from '../hooks/usePopupHistory';
 
 interface BiddingBottomSheetProps {
   isOpen: boolean;
@@ -9,6 +10,8 @@ interface BiddingBottomSheetProps {
 }
 
 export function BiddingBottomSheet({ isOpen, onClose, item, onBidSubmit }: BiddingBottomSheetProps) {
+  usePopupHistory(isOpen, onClose, 'BiddingBottomSheet');
+
   // 예시 가격 처리
   const desiredPriceStr = item?.price ? item.price : "850,000";
   const desiredPrice = parseInt(desiredPriceStr.toString().replace(/,/g, '').replace('원', ''));

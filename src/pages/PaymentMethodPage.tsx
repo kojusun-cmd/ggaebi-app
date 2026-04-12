@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { usePopupHistory } from '../hooks/usePopupHistory';
 import { ChevronLeft, Plus, CreditCard, Building2, ShieldCheck, Ticket } from 'lucide-react';
 
 export function PaymentMethodPage({ onBack }: { onBack: () => void, onNavigate: (page: string) => void }) {
@@ -6,6 +7,18 @@ export function PaymentMethodPage({ onBack }: { onBack: () => void, onNavigate: 
   const [loading, setLoading] = useState(false);
   const [showReward, setShowReward] = useState(false);
   
+  usePopupHistory(
+    showAddMethod,
+    () => setShowAddMethod(false),
+    'PaymentMethod_AddMethod'
+  );
+
+  usePopupHistory(
+    showReward,
+    () => setShowReward(false),
+    'PaymentMethod_Reward'
+  );
+
   // 목업용 결제수단 데이터 (초기엔 비어있을 수도 있음)
   const [methods, setMethods] = useState<any[]>([]);
 

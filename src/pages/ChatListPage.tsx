@@ -1,11 +1,30 @@
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
+import { usePopupHistory } from "../hooks/usePopupHistory";
 import { FEED_ITEMS } from "../data/mockData";
 
 export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (page: string, item?: any) => void }) {
     const [showChatModal, setShowChatModal] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const [activeChatRoom, setActiveChatRoom] = useState<any>(null);
+
+    usePopupHistory(
+      showChatModal,
+      () => {
+        setShowChatModal(false);
+        setActiveChatRoom(null);
+      },
+      'ChatList_ChatModal'
+    );
+
+    usePopupHistory(
+      chatStep === 6,
+      () => {
+        setChatStep(5);
+      },
+      'ChatList_ObjectionModal'
+    );
+
     const chatRooms = [
             {
               id: 1,

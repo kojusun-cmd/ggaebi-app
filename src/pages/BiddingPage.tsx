@@ -5,6 +5,7 @@ import { FEED_ITEMS } from "../data/mockData";
 import { useNow } from "../hooks/useNow";
 import { AuctionTimer } from "../components/AuctionTimer";
 import { FeedItemCard } from "../components/FeedItemCard";
+import { usePopupHistory } from "../hooks/usePopupHistory";
 
 export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => void, onNavigate: (page: string, item?: any) => void, initialTab?: string }) {
     const now = useNow();
@@ -22,6 +23,10 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
     const [showPaymentSheet, setShowPaymentSheet] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const activeItems = FEED_ITEMS.slice(16, 20);
+
+    usePopupHistory(showChatModal, () => { setShowChatModal(false); setChatStep(0); }, 'BiddingChatModal');
+    usePopupHistory(showPaymentSheet, () => setShowPaymentSheet(false), 'BiddingPaymentSheet');
+
     return (
     <>
       <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>

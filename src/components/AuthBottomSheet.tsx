@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { usePopupHistory } from '../hooks/usePopupHistory';
 
 interface AuthBottomSheetProps {
   isOpen: boolean;
@@ -9,6 +10,8 @@ interface AuthBottomSheetProps {
 }
 
 export function AuthBottomSheet({ isOpen, onClose, onLogin, onEmailLogin, onEmailSignup }: AuthBottomSheetProps) {
+  usePopupHistory(isOpen, onClose, 'AuthBottomSheet');
+
   if (!isOpen) return null;
 
   return (

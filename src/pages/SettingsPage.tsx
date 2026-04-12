@@ -1,5 +1,6 @@
 import { ChevronLeft, Bell, Clock, Moon, CreditCard, Gavel, ChevronRight, UserCheck, MapPin, Smartphone, Key, ShieldAlert, HelpCircle } from "lucide-react";
 import { useState } from "react";
+import { usePopupHistory } from "../hooks/usePopupHistory";
 import { CustomToggle } from "../components/CustomToggle";
 
 export function SettingsPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string) => void }) {
@@ -13,6 +14,13 @@ export function SettingsPage({ onBack, onNavigate }: { onBack: () => void, onNav
             darkMode: false,
           });
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+    usePopupHistory(
+      showLogoutConfirm,
+      () => setShowLogoutConfirm(false),
+      'Settings_LogoutConfirm'
+    );
+
     const handleToggle = (key: keyof typeof toggles) => {
             setToggles(prev => ({ ...prev, [key]: !prev[key] }));
           };

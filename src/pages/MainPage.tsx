@@ -1,5 +1,6 @@
 import { Search, Bell, ChevronUp, Home, Gavel, Plus, MessageCircle, User } from "lucide-react";
 import { useState, useRef, useEffect, type MouseEvent } from "react";
+import { usePopupHistory } from "../hooks/usePopupHistory";
 import { CATEGORY_MAP, REGION_MAP } from "../data/constants";
 import { HOT_DEALS, FEED_ITEMS } from "../data/mockData";
 import { AuctionTimer } from "../components/AuctionTimer";
@@ -11,6 +12,13 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
     const [roadmapTab, setRoadmapTab] = useState<'category' | 'region'>('category');
     const [showRoadmap, setShowRoadmap] = useState(false);
     const [dealIdx, setDealIdx] = useState(0);
+
+    usePopupHistory(
+      showRoadmap,
+      () => setShowRoadmap(false),
+      'MainPage_Roadmap'
+    );
+
     const scrollRef = useRef<HTMLDivElement>(null);
     const curtainInnerRef = useRef<HTMLDivElement>(null);
     const [isDrag, setIsDrag] = useState(false);
