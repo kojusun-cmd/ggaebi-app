@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { ChevronLeft, Plus, CreditCard, Building2, CheckCircle2, ShieldCheck, Ticket } from 'lucide-react';
+import { ChevronLeft, Plus, CreditCard, Building2, ShieldCheck, Ticket } from 'lucide-react';
 
-export function PaymentMethodPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string) => void }) {
+export function PaymentMethodPage({ onBack }: { onBack: () => void, onNavigate: (page: string) => void }) {
   const [showAddMethod, setShowAddMethod] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showReward, setShowReward] = useState(false);

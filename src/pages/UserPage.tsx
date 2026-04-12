@@ -15,6 +15,8 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
     const [showSettlementSheet, setShowSettlementSheet] = useState(false);
     const [magicItems, setMagicItems] = useState(0);
     const [showRewardAlert, setShowRewardAlert] = useState(false);
+    const [showPenaltySheet, setShowPenaltySheet] = useState(false);
+    const penaltyCount = 2; // Mocked
 
     const handleLogin = () => {
         globalIsLoggedIn = true;
@@ -135,15 +137,15 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
             </div>
 
             {/* 삼진아웃 구역 */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#FEF2F2', padding: '12px', borderRadius: '12px', border: '1px solid #FECACA', cursor: 'pointer' }}>
+            <div onClick={() => setShowPenaltySheet(true)} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#FEF2F2', padding: '12px', borderRadius: '12px', border: '1px solid #FECACA', cursor: 'pointer' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <ShieldAlert size={18} color="#DC2626" />
-                <span style={{ fontSize: '13px', color: '#991B1B', fontWeight: 'bold' }}>삼진아웃 낙찰 파기 경고</span>
+                <span style={{ fontSize: '13px', color: '#991B1B', fontWeight: 'bold' }}>통합 페널티 경고 ({penaltyCount}/3)</span>
               </div>
               <div style={{ display: 'flex', gap: '4px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#DC2626' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FCA5A5' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#FCA5A5' }} />
+                {[1, 2, 3].map(step => (
+                  <div key={step} style={{ width: '12px', height: '12px', borderRadius: '50%', background: step <= penaltyCount ? '#DC2626' : '#FCA5A5' }} />
+                ))}
               </div>
             </div>
           </div>
@@ -364,6 +366,45 @@ export function UserPage({ onNavigate, onBack }: { onNavigate: (page: string, it
                 }
             `}</style>
           </div>
+      )}
+
+      {showPenaltySheet && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 110, background: 'rgba(0,0,0,0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <div className="fade-slide-up" style={{ background: '#fff', borderRadius: '24px 24px 0 0', padding: '32px 24px', width: '100%', maxWidth: 'var(--app-width)', position: 'relative' }}>
+             <button onClick={() => setShowPenaltySheet(false)} style={{ position: 'absolute', top: '24px', right: '24px', background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: '#64748B' }}>✕</button>
+             <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ShieldAlert size={24} color="#DC2626" />
+                나의 통합 페널티 내역
+             </h3>
+             <p style={{ fontSize: '14px', color: '#64748B', marginBottom: '20px', lineHeight: 1.5 }}>
+               현재 구매/판매 통합 <b>{penaltyCount}회</b>의 경고가 누적되었습니다.<br/>
+               <span style={{ color: '#EF4444', fontWeight: 'bold' }}>총 3회 누적 시 이번 달 서비스 이용이 정지</span>되며, <br/>패널티는 매월 1일에 초기화됩니다.
+             </p>
+             
+             <div style={{ background: '#F8FAFC', borderRadius: '16px', padding: '16px', marginBottom: '16px', border: '1px solid #E2E8F0' }}>
+               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', paddingBottom: '12px', borderBottom: '1px dashed #CBD5E1', marginBottom: '12px' }}>
+                  <div style={{ background: '#FEE2E2', color: '#DC2626', fontSize: '12px', fontWeight: 'bold', padding: '4px 8px', borderRadius: '6px', whiteSpace: 'nowrap' }}>판매자 경고</div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#1E293B', marginBottom: '4px' }}>판매 상품 미발송 (경고 1회)</div>
+                    <div style={{ fontSize: '12px', color: '#94A3B8' }}>2026.04.15 14:30 · 구매자 클레임 접수 및 승인</div>
+                  </div>
+               </div>
+               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                  <div style={{ background: '#FEE2E2', color: '#DC2626', fontSize: '12px', fontWeight: 'bold', padding: '4px 8px', borderRadius: '6px', whiteSpace: 'nowrap' }}>구매자 경고</div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#1E293B', marginBottom: '4px' }}>낙찰 후 입금 기한 초과 (경고 1회)</div>
+                    <div style={{ fontSize: '12px', color: '#94A3B8' }}>2026.04.12 09:15 · 입금 지연으로 자동 취소</div>
+                  </div>
+               </div>
+             </div>
+
+             <div onClick={() => { setShowPenaltySheet(false); onNavigate('guide_penalty'); }} style={{ textAlign: 'center', marginBottom: '20px', cursor: 'pointer' }}>
+                <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 'bold', textDecoration: 'underline' }}>페널티 가이드라인 상세 보기</span>
+             </div>
+
+             <button onClick={() => setShowPenaltySheet(false)} style={{ width: '100%', padding: '16px', borderRadius: '16px', background: '#DC2626', color: '#fff', border: 'none', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer' }}>확인했습니다</button>
+          </div>
+        </div>
       )}
     </>
     );

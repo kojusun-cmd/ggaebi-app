@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, Wallet, ShieldAlert, ArrowDownCircle, ArrowUpCircle, CheckCircle } from 'lucide-react';
+import { ChevronLeft, ShieldAlert, ArrowDownCircle, ArrowUpCircle } from 'lucide-react';
 
 export function WalletPage({ onBack }: { onBack: () => void }) {
   const [activeTab, setActiveTab] = useState<'all' | 'in' | 'out'>('all');

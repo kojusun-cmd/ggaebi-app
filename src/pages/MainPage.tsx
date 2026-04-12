@@ -1,5 +1,5 @@
 import { Search, Bell, ChevronUp, Home, Gavel, Plus, MessageCircle, User } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type MouseEvent } from "react";
 import { CATEGORY_MAP, REGION_MAP } from "../data/constants";
 import { HOT_DEALS, FEED_ITEMS } from "../data/mockData";
 import { AuctionTimer } from "../components/AuctionTimer";

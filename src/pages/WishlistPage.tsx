@@ -1,6 +1,5 @@
 import { ChevronLeft } from "lucide-react";
 import { FEED_ITEMS } from "../data/mockData";
-import { AuctionTimer } from "../components/AuctionTimer";
 import { FeedItemCard } from "../components/FeedItemCard";
 
 export function WishlistPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string, item?: any) => void }) {

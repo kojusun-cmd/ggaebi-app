@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, Users, Eye, Heart, Sparkles, Coins } from 'lucide-react';
+import { ChevronLeft, Users, Eye, Heart, Sparkles } from 'lucide-react';
 import { FEED_ITEMS } from '../data/mockProducts';
 
 export function SalesHistoryPage({ onBack, onNavigate }: { onBack: () => void, onNavigate: (page: string, item?: any) => void }) {
@@ -62,7 +62,7 @@ export function SalesHistoryPage({ onBack, onNavigate }: { onBack: () => void, o
                 <div style={{ display: 'flex', justifyContent: 'space-between', background: '#F8FAFC', padding: '16px', borderRadius: '16px', marginBottom: '16px' }}>
                   <div style={{ textAlign: 'center', flex: 1 }}>
                     <Users size={20} color="#94A3B8" style={{ margin: '0 auto 4px' }} />
-                    <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B' }}>{item.bidders}명</div>
+                    <div style={{ fontSize: '15px', fontWeight: 'bold', color: '#1E293B' }}>{(item as any).bidders}명</div>
                     <div style={{ fontSize: '11px', color: '#64748B' }}>입찰 참여</div>
                   </div>
                   <div style={{ width: '1px', background: '#E2E8F0', margin: '0 8px' }}></div>

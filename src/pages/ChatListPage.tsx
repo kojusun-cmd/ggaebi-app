@@ -2,7 +2,7 @@ import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { FEED_ITEMS } from "../data/mockData";
 
-export function ChatListPage({ onBack, _onNavigate }: { onBack: () => void, _onNavigate?: (page: string, item?: any) => void }) {
+export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (page: string, item?: any) => void }) {
     const [showChatModal, setShowChatModal] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const [activeChatRoom, setActiveChatRoom] = useState<any>(null);

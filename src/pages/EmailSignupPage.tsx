@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronLeft, ShieldAlert, CheckCircle, Smartphone, MapPin, Wand2, Key, Loader2 } from "lucide-react";
 
 export function EmailSignupPage({ onBack, onComplete }: { onBack: () => void, onComplete: () => void }) {
@@ -277,7 +277,7 @@ export function EmailSignupPage({ onBack, onComplete }: { onBack: () => void, on
                 ((step === 1 && !isVerified) || (step === 2 && (!email || pw.length < 6)) || (step === 3 && !region)) ? '#E2E8F0' : 
                 (step === 4 ? '#DC2626' : 'linear-gradient(135deg, #35D8E6 0%, #10B981 100%)'), 
               color: ((step === 1 && !isVerified) || (step === 2 && (!email || pw.length < 6)) || (step === 3 && !region)) ? '#94A3B8' : '#fff', 
-              border: 'none', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer',
+              fontWeight: 'bold', fontSize: '16px', cursor: 'pointer',
               transition: 'all 0.2s', boxShadow: ((step === 1 && !isVerified) || (step === 2 && (!email || pw.length < 6)) || (step === 3 && !region)) ? 'none' : '0 12px 24px rgba(16,185,129,0.2)'
             }}
           >

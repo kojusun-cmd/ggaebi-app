@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, Info, CheckCircle2, Ticket, CreditCard, Wallet, Sparkles } from 'lucide-react';
 
 interface CheckoutPageProps {
@@ -7,7 +7,7 @@ interface CheckoutPageProps {
   onNavigate?: (page: string, payload?: any) => void;
 }
 
-export function CheckoutPage({ onBack, item, onNavigate }: CheckoutPageProps) {
+export function CheckoutPage({ onBack, item }: CheckoutPageProps) {
   const [paymentMethod, setPaymentMethod] = useState<'kkaebi' | 'general'>('kkaebi');
   const [useCoupon, setUseCoupon] = useState(false);
 

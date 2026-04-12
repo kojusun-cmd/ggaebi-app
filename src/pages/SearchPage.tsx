@@ -198,7 +198,7 @@ export function SearchPage({ onNavigate, onBack }: { onNavigate: (page: string, 
                 <FeedItemCard 
                   key={item.id} 
                   item={item} 
-                  onClick={() => onNavigate('detail', item)} 
+                  onNavigate={onNavigate} 
                 />
               ))}
             </div>

@@ -1,15 +1,5 @@
-import { useState, useEffect, useRef, type MouseEvent } from 'react';
-import {
-  ChevronRight, ChevronLeft, ChevronUp, ChevronDown, Search, Bell, Home, Gavel, Heart, MessageCircle, User, MapPin, Trash2, ShieldAlert, Plus, Camera, Wand2, ImagePlus, Sparkles, CheckCircle, TrendingUp, Package
-} from 'lucide-react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler
-} from 'chart.js';
+import { useState, useRef } from 'react';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
-
-import { FEED_ITEMS as RAW_FEED_ITEMS } from './data/mockProducts';
 import { UserPage } from './pages/UserPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { EmailSignupPage } from './pages/EmailSignupPage';
@@ -20,7 +10,6 @@ import { WalletPage } from './pages/WalletPage';
 import { PaymentMethodPage } from './pages/PaymentMethodPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { DetailPage } from './pages/DetailPage';
-import { CustomToggle } from './components/CustomToggle';
 import { MainPage } from './pages/MainPage';
 import { ProductRegistrationPage } from './pages/ProductRegistrationPage';
 import { WishlistPage } from './pages/WishlistPage';
