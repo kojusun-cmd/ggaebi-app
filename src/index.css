@@ -613,10 +613,6 @@ h1, h2, h3, h4 {
   transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
-  margin-left: -28px;
-  margin-right: -28px;
-  padding-left: 28px;
-  padding-right: 28px;
 }
 .curtain-wrapper.open {
   grid-template-rows: 1fr;
@@ -626,8 +622,11 @@ h1, h2, h3, h4 {
 .curtain-inner {
   overflow-y: auto;
   max-height: calc(100vh - 260px); /* Leave room for header, tab, and bottom nav */
-  scrollbar-width: thin;
+  scrollbar-width: none;
   padding-bottom: 24px;
+}
+.curtain-inner::-webkit-scrollbar {
+  display: none;
 }
 
 /* --- 카테고리 로드맵 뷰 --- */
