@@ -613,6 +613,7 @@ h1, h2, h3, h4 {
   transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
+  margin: 0 -28px; /* Expand window outside to give room for shadows */
 }
 .curtain-wrapper.open {
   grid-template-rows: 1fr;
@@ -623,7 +624,7 @@ h1, h2, h3, h4 {
   overflow-y: auto;
   max-height: calc(100vh - 260px); /* Leave room for header, tab, and bottom nav */
   scrollbar-width: none;
-  padding-bottom: 24px;
+  padding: 0 20px 24px 20px; /* Offset to perfectly match the -8px line while guarding shadow */
 }
 .curtain-inner::-webkit-scrollbar {
   display: none;
@@ -635,7 +636,7 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-lg);
   padding: 16px;
   box-shadow: 0 10px 40px rgba(46,52,62,0.05);
-  margin: 0 -8px 24px -8px;
+  margin: 0 0 24px 0; /* Margin safely transferred to parent window calculation */
 }
 .roadmap-title {
   font-size: 19px;
