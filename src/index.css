@@ -556,6 +556,13 @@ h1, h2, h3, h4 {
 .feed-card:hover {
   transform: translateY(-2px);
 }
+
+/* Slightly widen cards only in bidding progress tab */
+.bidding-progress-feed .feed-card {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
 .feed-img-box {
   width: 140px;
   height: 140px;

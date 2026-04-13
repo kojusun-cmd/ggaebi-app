@@ -209,7 +209,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '20px', filter: 'drop-shadow(1px 2px 2px rgba(0,0,0,0.2))' }}>🔨</span> 나의 입찰 진행중
             </h2>
-            <div className="feed-grid fade-slide-up">
+            <div className="feed-grid fade-slide-up bidding-progress-feed">
               {activeItems.length > 0 ? (
                 activeItems.map(item => (
                   <FeedItemCard
