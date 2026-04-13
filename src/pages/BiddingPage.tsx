@@ -54,7 +54,13 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
         </button>
       </div>
 
-      <div className="content-area subpage" style={{ paddingTop: '16px', paddingBottom: '100px' }}>
+      <div
+        className={activeTab === 'progress' ? 'content-area' : 'content-area subpage'}
+        style={{
+          paddingTop: '16px',
+          paddingBottom: '100px',
+        }}
+      >
         
         {activeTab === 'payment' && (
           <>
