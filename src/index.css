@@ -559,19 +559,19 @@ h1, h2, h3, h4 {
 
 /* Slightly widen cards only in bidding progress tab */
 .bidding-progress-feed .feed-card {
-  margin-left: -20px;
-  margin-right: -20px;
-  padding: 10px;
-  gap: 12px;
+  margin-left: -24px;
+  margin-right: -24px;
+  padding: 9px;
+  gap: 10px;
 }
 
 .bidding-progress-feed .feed-img-box {
-  width: 156px;
-  height: 156px;
+  width: 168px;
+  height: 168px;
 }
 
 .bidding-progress-feed .feed-title {
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .feed-img-box {
