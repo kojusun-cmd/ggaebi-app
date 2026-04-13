@@ -567,8 +567,8 @@ h1, h2, h3, h4 {
 
 /* Payment banners keep previous frame */
 .bidding-payment-feed .feed-card {
-  margin-left: -24px;
-  margin-right: -24px;
+  margin-left: -30px;
+  margin-right: -30px;
   padding: 9px;
   gap: 10px;
 }
@@ -585,6 +585,12 @@ h1, h2, h3, h4 {
   height: 140px;
 }
 
+/* Match payment thumbnails to progress/main feed */
+.bidding-payment-feed .feed-img-box {
+  width: 140px;
+  height: 140px;
+}
+
 .bidding-progress-feed .feed-title,
 .bidding-payment-feed .feed-title {
   font-size: 18px;
@@ -592,8 +598,8 @@ h1, h2, h3, h4 {
 
 /* Swipe wrapper on payment-completed cards needs outer gutter parity */
 .bidding-payment-feed .bidding-payment-swipe-card {
-  margin-left: -12px;
-  margin-right: -12px;
+  margin-left: -30px;
+  margin-right: -30px;
 }
 
 .bidding-payment-feed .bidding-payment-swipe-card .feed-card {
