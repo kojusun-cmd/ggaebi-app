@@ -31,7 +31,7 @@ function App() {
   const scrollPositions = useRef<Record<string, number>>({});
   const [scrollThumbTop, setScrollThumbTop] = useState(0);
   const [scrollThumbHeight, setScrollThumbHeight] = useState(44);
-  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   // Auth States
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
