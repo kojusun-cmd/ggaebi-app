@@ -559,8 +559,8 @@ h1, h2, h3, h4 {
 
 /* Slightly widen cards only in bidding progress tab */
 .bidding-progress-feed .feed-card {
-  margin-left: -12px;
-  margin-right: -12px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
 .feed-img-box {
