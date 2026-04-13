@@ -91,8 +91,8 @@ body {
 
 /* Bidding "progress" tab uses exact home feed gutter */
 .content-area.subpage.bidding-progress-layout {
-  padding-left: 80px !important;
-  padding-right: 74px !important;
+  padding-left: 45px !important;
+  padding-right: 39px !important;
 }
 
 h1, h2, h3, h4 {
