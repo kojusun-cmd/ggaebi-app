@@ -80,7 +80,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                 <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981' }}>
                   🎉 낙찰 성공! 결제를 진행해주세요
                 </h2>
-                <div className="feed-grid fade-slide-up">
+                <div className="feed-grid fade-slide-up bidding-payment-feed">
                   {wonItems.map(item => (
                     <div key={item.id} style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '20px', margin: '0 -8px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
                       <div className="feed-card" style={{ margin: 0, border: 'none', background: 'transparent', boxShadow: 'none', padding: '12px' }} onClick={() => onNavigate('detail', item)}>
@@ -146,7 +146,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             {/* 심사/결과 대기 중 영역 */}
             <section style={{ marginBottom: '36px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px' }}>⏳ 결과 대기 및 거래 종료</h2>
-              <div className="feed-grid fade-slide-up">
+              <div className="feed-grid fade-slide-up bidding-payment-feed">
                 {completedItems.length > 0 ? (
                   completedItems.map(item => (
                     <SwipeToDeleteCard 
