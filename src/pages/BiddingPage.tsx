@@ -29,7 +29,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', paddingBottom: 0, paddingLeft: '16px' }}>
+      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', paddingBottom: 0, paddingLeft: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer' }}>
             <ChevronLeft size={28} color="#2E343E" />
