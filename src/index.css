@@ -636,8 +636,8 @@ h1, h2, h3, h4 {
 
 /* Swipe wrapper on payment-completed cards needs outer gutter parity */
 .bidding-payment-feed .bidding-payment-swipe-card {
-  margin-left: -30px;
-  margin-right: -26px;
+  margin-left: -32px;
+  margin-right: -28px;
 }
 
 /* Slightly wider only for payment won banner */
