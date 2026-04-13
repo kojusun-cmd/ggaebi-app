@@ -46,23 +46,29 @@ body {
   width: 100%;
 }
 
-/* --- 모바일 감성 슬림 스크롤바 커스텀 --- */
+/* --- Global visible scrollbar --- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46, 52, 62, 0.72) rgba(15, 23, 42, 0.08);
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
   background: transparent;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(15, 23, 42, 0.08);
   border-radius: 10px;
-  margin-top: 350px; /* 상단 큰 상품배너(Top header + Hero banner) 보호 구역 */
-  margin-bottom: 80px; /* 하단 내 정보(Bottom nav) 보호 구역 */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(17, 241, 126, 0.5); /* 섞인 브랜드 컬러 */
+  background: rgba(46, 52, 62, 0.72);
   border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(17, 241, 126, 0.8);
+  background: rgba(46, 52, 62, 0.92);
 }
 
 .app-wrapper {
@@ -74,6 +80,7 @@ body {
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
   position: relative;
   box-shadow: 0 0 50px rgba(0,0,0,0.15);
 }
@@ -691,11 +698,12 @@ h1, h2, h3, h4 {
 .curtain-inner {
   overflow-y: auto;
   max-height: calc(100vh - 170px); /* Expanded to utilize the space freed by the collapsed hero banner */
-  scrollbar-width: none;
+  scrollbar-width: thin;
   padding: 0 20px 24px 20px; /* Offset to perfectly match the -8px line while guarding shadow */
 }
 .curtain-inner::-webkit-scrollbar {
-  display: none;
+  display: block;
+  width: 8px;
 }
 
 /* --- 카테고리 로드맵 뷰 --- */
