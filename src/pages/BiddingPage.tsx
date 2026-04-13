@@ -156,8 +156,29 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                       onDelete={() => setCompletedItems(prev => prev.filter(i => i.id !== item.id))}
                       onClick={() => onNavigate('detail', item)}
                     >
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <div className="feed-card" style={{ cursor: 'pointer' }}>
+                      <div
+                        style={
+                          item.tradeStatus === 'assessing'
+                            ? {
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 0,
+                                background: '#fff',
+                                borderRadius: '20px',
+                                overflow: 'hidden',
+                                boxShadow: 'var(--shadow-card)',
+                              }
+                            : { display: 'flex', flexDirection: 'column', gap: '10px' }
+                        }
+                      >
+                        <div
+                          className="feed-card"
+                          style={
+                            item.tradeStatus === 'assessing'
+                              ? { cursor: 'pointer', margin: 0, boxShadow: 'none', borderRadius: 0 }
+                              : { cursor: 'pointer' }
+                          }
+                        >
                           <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
                             <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.tradeStatus === 'sold' ? 0.6 : 1 }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
                             {item.tradeStatus === 'assessing' && (
@@ -193,7 +214,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                         </div>
 
                         {item.tradeStatus === 'assessing' && (
-                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '10px 12px', borderRadius: '10px', fontSize: '12px', color: '#475569', lineHeight: 1.6, display: 'flex', gap: '8px', alignItems: 'flex-start', wordBreak: 'keep-all' }}>
+                          <div style={{ background: '#F8FAFC', borderTop: '1px solid #E2E8F0', padding: '12px 14px', fontSize: '12px', color: '#475569', lineHeight: 1.6, display: 'flex', gap: '8px', alignItems: 'flex-start', wordBreak: 'keep-all' }}>
                             <span style={{ fontSize: '14px', lineHeight: 1.2 }}>ℹ️</span>
                             <span>
                               <b style={{ color: '#334155' }}>현재 최고가 낙찰자</b>가 결제를 진행 중입니다.<br />
