@@ -89,6 +89,12 @@ body {
   padding: 0 24px 45px 24px;
 }
 
+/* Bidding "progress" tab uses exact home feed gutter */
+.content-area.subpage.bidding-progress-layout {
+  padding-left: 45px !important;
+  padding-right: 39px !important;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Pretendard', sans-serif;
   color: var(--text-dark);
