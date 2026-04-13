@@ -29,7 +29,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
     return (
     <>
-      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none', paddingBottom: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -42,7 +42,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       <div
         style={{
           position: 'sticky',
-          top: '65px',
+          top: '56px',
           background: '#fff',
           zIndex: 40,
           borderBottom: '1px solid #E2E8F0',
@@ -155,45 +155,51 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                       onDelete={() => setCompletedItems(prev => prev.filter(i => i.id !== item.id))}
                       onClick={() => onNavigate('detail', item)}
                     >
-                      <div className="feed-card" style={{ cursor: 'pointer' }}>
-                        <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
-                          <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.tradeStatus === 'sold' ? 0.6 : 1 }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
-                          {item.tradeStatus === 'assessing' && (
-                            <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(255, 78, 80, 0.95)', color: '#fff', fontSize: '12px', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                              결과 대기중
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <div className="feed-card" style={{ cursor: 'pointer' }}>
+                          <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
+                            <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: item.tradeStatus === 'sold' ? 0.6 : 1 }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
+                            {item.tradeStatus === 'assessing' && (
+                              <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(255, 78, 80, 0.95)', color: '#fff', fontSize: '12px', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                                결과 대기중
+                              </div>
+                            )}
+                            {item.tradeStatus === 'sold' && (
+                              <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(46, 52, 62, 0.9)', color: '#fff', fontSize: '12px', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                                판매완료
+                              </div>
+                            )}
+                          </div>
+                          <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', paddingBottom: '4px', overflow: 'hidden', justifyContent: 'center' }}>
+                            <div className="feed-title" style={{ paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{item.title}</div>
+                            
+                            <div>
+                              <div className="feed-price" style={{ margin: 0, whiteSpace: 'nowrap' }}>
+                                {item.price}
+                              </div>
+                              <div style={{ marginTop: '2px' }}>
+                                <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#94A3B8' }}>(내 입찰가)</span>
+                              </div>
                             </div>
-                          )}
-                          {item.tradeStatus === 'sold' && (
-                            <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(46, 52, 62, 0.9)', color: '#fff', fontSize: '12px', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                              판매완료
-                            </div>
-                          )}
-                        </div>
-                        <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', paddingBottom: '4px', overflow: 'hidden', justifyContent: 'center' }}>
-                          <div className="feed-title" style={{ paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{item.title}</div>
-                          
-                          <div>
-                            <div className="feed-price" style={{ margin: 0, whiteSpace: 'nowrap' }}>
-                              {item.price}
-                            </div>
-                            <div style={{ marginTop: '2px' }}>
-                              <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#94A3B8' }}>(내 입찰가)</span>
+
+                            <div className="feed-meta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', paddingBottom: '2px', marginTop: '16px', whiteSpace: 'nowrap' }}>
+                              <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold' }}>경매종료</span>
+                              <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold', fontSize: '12px' }}>
+                                {item.tradeStatus === 'sold' ? '판매완료' : '다른회원 거래중'}
+                              </span>
                             </div>
                           </div>
+                        </div>
 
-                          <div className="feed-meta" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', paddingBottom: '2px', marginTop: '16px', whiteSpace: 'nowrap' }}>
-                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold' }}>경매종료</span>
-                            <span style={{ color: item.tradeStatus === 'sold' ? '#94A3B8' : '#FF4E50', fontWeight: 'bold', fontSize: '12px' }}>
-                              {item.tradeStatus === 'sold' ? '판매완료' : '다른회원 거래중'}
+                        {item.tradeStatus === 'assessing' && (
+                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '10px 12px', borderRadius: '10px', fontSize: '12px', color: '#475569', lineHeight: 1.6, display: 'flex', gap: '8px', alignItems: 'flex-start', wordBreak: 'keep-all' }}>
+                            <span style={{ fontSize: '14px', lineHeight: 1.2 }}>ℹ️</span>
+                            <span>
+                              <b style={{ color: '#334155' }}>현재 최고가 낙찰자</b>가 결제를 진행 중입니다.<br />
+                              낙찰자가 포기할 경우, <b style={{ color: '#334155' }}>대기자인 회원님</b>께 안내됩니다.
                             </span>
                           </div>
-
-                          {item.tradeStatus === 'assessing' && (
-                            <div style={{ fontSize: '11px', color: '#64748B', marginTop: '12px', background: '#F1F5F9', padding: '8px', borderRadius: '6px', lineHeight: 1.4, wordBreak: 'keep-all' }}>
-                              현재 최고가 낙찰자가 결제를 진행 중입니다.<br/>낙찰자가 포기할 경우, 대기자인 회원님께 안내됩니다.
-                            </div>
-                          )}
-                        </div>
+                        )}
                       </div>
                     </SwipeToDeleteCard>
                   ))
