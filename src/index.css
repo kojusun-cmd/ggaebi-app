@@ -90,18 +90,24 @@ body {
   top: 14px;
   right: max(calc((100vw - var(--app-width)) / 2 + 4px), 4px);
   bottom: 88px;
-  width: 10px;
+  width: 4px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.28);
+  background: rgba(0, 0, 0, 0.04);
   z-index: 9999;
   pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.app-scroll-indicator-track.is-scrolling {
+  opacity: 0.9;
 }
 
 .app-scroll-indicator-thumb {
   width: 100%;
   border-radius: 999px;
-  background: rgba(17, 241, 126, 0.95);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+  background: rgba(17, 241, 126, 0.58);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.14);
   transition: transform 0.1s linear;
 }
 

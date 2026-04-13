@@ -32,6 +32,8 @@ function App() {
   const [scrollThumbTop, setScrollThumbTop] = useState(0);
   const [scrollThumbHeight, setScrollThumbHeight] = useState(44);
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollFadeTimerRef = useRef<number | null>(null);
 
   // Auth States
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -82,6 +84,14 @@ function App() {
   }, []);
 
   const updateScrollIndicator = () => {
+    setIsScrolling(true);
+    if (scrollFadeTimerRef.current) {
+      window.clearTimeout(scrollFadeTimerRef.current);
+    }
+    scrollFadeTimerRef.current = window.setTimeout(() => {
+      setIsScrolling(false);
+    }, 700);
+
     const el = appWrapperRef.current;
     if (!el) return;
 
@@ -118,6 +128,9 @@ function App() {
       clearTimeout(lateTimer);
       window.removeEventListener('resize', updateScrollIndicator);
       observer?.disconnect();
+      if (scrollFadeTimerRef.current) {
+        window.clearTimeout(scrollFadeTimerRef.current);
+      }
     };
   }, [currentPage]);
 
@@ -163,7 +176,7 @@ function App() {
     <>
       <div className="app-wrapper" ref={appWrapperRef} onScroll={updateScrollIndicator}>
         {showScrollIndicator && (
-          <div className="app-scroll-indicator-track" aria-hidden="true">
+          <div className={`app-scroll-indicator-track ${isScrolling ? 'is-scrolling' : ''}`} aria-hidden="true">
             <div
               className="app-scroll-indicator-thumb"
               style={{
