@@ -77,7 +77,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
           <div style={{ marginTop: '18px' }}>
             {/* 낙찰 성공 (최상단 강조) */}
             {wonItems.length > 0 && (
-              <section style={{ marginBottom: '36px' }}>
+              <section style={{ marginBottom: 0 }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981' }}>
                   🎉 낙찰 성공! 결제를 진행해주세요
                 </h2>
@@ -145,7 +145,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             )}
 
             {/* 심사/결과 대기 중 영역 */}
-            <section style={{ marginTop: '40px', marginBottom: '36px' }}>
+            <section style={{ marginTop: '56px', marginBottom: '36px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px' }}>⏳ 결과 대기 및 거래 종료</h2>
               <div className="feed-grid fade-slide-up bidding-payment-feed">
                 {completedItems.length > 0 ? (
