@@ -557,8 +557,15 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
-/* Slightly widen cards only in bidding progress tab */
-.bidding-progress-feed .feed-card,
+/* Progress banners: keep thumbnail fixed, widen card frame */
+.bidding-progress-feed .feed-card {
+  margin-left: -30px;
+  margin-right: -30px;
+  padding: 9px;
+  gap: 10px;
+}
+
+/* Payment banners keep previous frame */
 .bidding-payment-feed .feed-card {
   margin-left: -24px;
   margin-right: -24px;
