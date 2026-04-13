@@ -99,6 +99,11 @@ body {
   transition: opacity 0.2s ease;
 }
 
+.app-scroll-indicator-track.home-page {
+  top: 355px;
+  bottom: 92px;
+}
+
 .app-scroll-indicator-track.is-scrolling {
   opacity: 0.9;
 }

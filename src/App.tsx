@@ -176,7 +176,10 @@ function App() {
     <>
       <div className="app-wrapper" ref={appWrapperRef} onScroll={updateScrollIndicator}>
         {showScrollIndicator && (
-          <div className={`app-scroll-indicator-track ${isScrolling ? 'is-scrolling' : ''}`} aria-hidden="true">
+          <div
+            className={`app-scroll-indicator-track ${currentPage === 'home' ? 'home-page' : ''} ${isScrolling ? 'is-scrolling' : ''}`}
+            aria-hidden="true"
+          >
             <div
               className="app-scroll-indicator-thumb"
               style={{
