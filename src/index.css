@@ -577,6 +577,17 @@ h1, h2, h3, h4 {
   font-size: 18px;
 }
 
+/* Swipe wrapper on payment-completed cards needs outer gutter parity */
+.bidding-payment-feed .bidding-payment-swipe-card {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.bidding-payment-feed .bidding-payment-swipe-card .feed-card {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .feed-img-box {
   width: 140px;
   height: 140px;

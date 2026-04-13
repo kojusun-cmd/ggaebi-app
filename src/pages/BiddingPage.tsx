@@ -151,6 +151,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                   completedItems.map(item => (
                     <SwipeToDeleteCard 
                       key={item.id} 
+                      className="bidding-payment-swipe-card"
                       onDelete={() => setCompletedItems(prev => prev.filter(i => i.id !== item.id))}
                       onClick={() => onNavigate('detail', item)}
                     >

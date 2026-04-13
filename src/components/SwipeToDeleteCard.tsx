@@ -1,7 +1,17 @@
 import { Trash2 } from "lucide-react";
 import { useState, useRef } from "react";
 
-export function SwipeToDeleteCard({ children, onDelete, onClick }: { children: React.ReactNode, onDelete: () => void, onClick: () => void }) {
+export function SwipeToDeleteCard({
+    children,
+    onDelete,
+    onClick,
+    className = '',
+  }: {
+    children: React.ReactNode,
+    onDelete: () => void,
+    onClick: () => void,
+    className?: string,
+  }) {
     const [offset, setOffset] = useState(0);
     const startX = useRef(0);
     const isDragging = useRef(false);
@@ -35,7 +45,7 @@ export function SwipeToDeleteCard({ children, onDelete, onClick }: { children: R
             }
           };
     return (
-    <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px' }}>
+    <div className={className} style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px' }}>
       <div 
         onClick={(e) => { e.stopPropagation(); onDelete(); }}
         style={{
