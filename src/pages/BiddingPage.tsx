@@ -29,7 +29,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
     return (
     <>
-      <header className={`top-header ${activeTab === 'progress' ? '' : 'subpage'}`} style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className="top-header" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -47,7 +47,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
           zIndex: 40,
           borderBottom: '1px solid #E2E8F0',
           display: 'flex',
-          padding: activeTab === 'progress' ? '0 39px 0 45px' : '0 24px',
+          padding: '0 39px 0 45px',
         }}
       >
         <button 
@@ -65,7 +65,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       </div>
 
       <div
-        className={activeTab === 'progress' ? 'content-area bidding-progress-layout' : 'content-area subpage'}
+        className="content-area"
         style={{
           paddingTop: '16px',
           paddingBottom: '100px',
