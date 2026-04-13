@@ -42,7 +42,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       <div
         style={{
           position: 'sticky',
-          top: '52px',
+          top: '48px',
           marginTop: '-1px',
           background: '#fff',
           zIndex: 40,
