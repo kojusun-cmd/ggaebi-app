@@ -50,18 +50,20 @@ export function CheckoutPage({ onBack, item }: CheckoutPageProps) {
         {/* 1. 최종 낙찰 상품 요약 (메인화면 상품 배너 규격 적용) */}
         <div style={{ marginBottom: '12px' }}>
           <h2 style={{ fontSize: '15px', color: '#64748B', fontWeight: 'bold', marginBottom: '12px', marginLeft: '4px' }}>결제 상품 정보</h2>
-          <div className="feed-card" style={{ margin: '0 -8px', cursor: 'default' }}>
-            <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
-              <img 
-                src={item?.img || "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?fit=crop&w=400&h=400"} 
-                alt="상품 이미지" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#10B981', fontWeight: 'bold', marginBottom: '6px' }}>최고가 낙찰 성공</div>
-              <div className="feed-title" style={{ paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{title}</div>
-              <div className="feed-price" style={{ margin: 0 }}>{itemPriceNum.toLocaleString()}원</div>
+          <div className="feed-grid">
+            <div className="feed-card" style={{ margin: '0 -8px', cursor: 'default' }}>
+              <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
+                <img 
+                  src={item?.img || "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?fit=crop&w=400&h=400"} 
+                  alt="상품 이미지" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ fontSize: '13px', color: '#10B981', fontWeight: 'bold', marginBottom: '6px' }}>최고가 낙찰 성공</div>
+                <div className="feed-title" style={{ paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{title}</div>
+                <div className="feed-price" style={{ margin: 0 }}>{itemPriceNum.toLocaleString()}원</div>
+              </div>
             </div>
           </div>
         </div>
