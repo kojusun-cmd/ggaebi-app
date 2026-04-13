@@ -29,7 +29,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
 
     return (
     <>
-      <header className="top-header subpage" style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
+      <header className={`top-header ${activeTab === 'progress' ? '' : 'subpage'}`} style={{ backgroundColor: '#fff', zIndex: 50, borderBottom: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
@@ -39,7 +39,17 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       </header>
 
       {/* 탭 네비게이션 */}
-      <div style={{ position: 'sticky', top: '65px', background: '#fff', zIndex: 40, borderBottom: '1px solid #E2E8F0', display: 'flex', padding: '0 39px 0 45px' }}>
+      <div
+        style={{
+          position: 'sticky',
+          top: '65px',
+          background: '#fff',
+          zIndex: 40,
+          borderBottom: '1px solid #E2E8F0',
+          display: 'flex',
+          padding: activeTab === 'progress' ? '0 39px 0 45px' : '0 24px',
+        }}
+      >
         <button 
           onClick={() => setActiveTab('progress')}
           style={{ flex: 1, padding: '16px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 'bold', color: activeTab === 'progress' ? '#1E293B' : '#94A3B8', borderBottom: activeTab === 'progress' ? '2px solid #1E293B' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.2s', textAlign: 'center' }}
