@@ -86,11 +86,15 @@ function App() {
     if (!el) return;
 
     const { scrollTop, scrollHeight, clientHeight } = el;
-    const hasOverflow = scrollHeight > clientHeight + 1;
-    setShowScrollIndicator(hasOverflow);
-    if (!hasOverflow) return;
-
     const trackHeight = Math.max(clientHeight - 28, 80);
+    const hasOverflow = scrollHeight > clientHeight + 1;
+    setShowScrollIndicator(true);
+    if (!hasOverflow) {
+      setScrollThumbHeight(trackHeight);
+      setScrollThumbTop(0);
+      return;
+    }
+
     const thumbHeight = Math.max((clientHeight / scrollHeight) * trackHeight, 36);
     const maxScroll = Math.max(scrollHeight - clientHeight, 1);
     const maxThumbTop = Math.max(trackHeight - thumbHeight, 0);
@@ -102,10 +106,18 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(updateScrollIndicator, 0);
+    const delayedTimer = setTimeout(updateScrollIndicator, 450);
+    const lateTimer = setTimeout(updateScrollIndicator, 1200);
     window.addEventListener('resize', updateScrollIndicator);
+    const el = appWrapperRef.current;
+    const observer = el ? new ResizeObserver(() => updateScrollIndicator()) : null;
+    if (el && observer) observer.observe(el);
     return () => {
       clearTimeout(timer);
+      clearTimeout(delayedTimer);
+      clearTimeout(lateTimer);
       window.removeEventListener('resize', updateScrollIndicator);
+      observer?.disconnect();
     };
   }, [currentPage]);
 
