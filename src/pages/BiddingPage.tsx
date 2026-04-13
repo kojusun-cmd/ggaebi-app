@@ -65,7 +65,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       </div>
 
       <div
-        className={`content-area subpage ${activeTab === 'progress' ? 'bidding-progress-layout' : ''}`}
+        className={activeTab === 'progress' ? 'content-area bidding-progress-layout' : 'content-area subpage'}
         style={{
           paddingTop: '16px',
           paddingBottom: '100px',
