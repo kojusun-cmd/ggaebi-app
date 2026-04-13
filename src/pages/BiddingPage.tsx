@@ -34,7 +34,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
           <div onClick={onBack} style={{ cursor: 'pointer', paddingRight: '8px' }}>
             <ChevronLeft size={28} color="#2E343E" />
           </div>
-          <h1 className="header-title" style={{ fontSize: '20px' }}>나의 입찰 내역</h1>
+          <h1 className="header-title" style={{ fontSize: '20px', marginLeft: '-6px' }}>나의 입찰 내역</h1>
         </div>
       </header>
 
