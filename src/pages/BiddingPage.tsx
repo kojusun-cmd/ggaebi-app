@@ -74,7 +74,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
       >
         
         {activeTab === 'payment' && (
-          <>
+          <div style={{ marginTop: '18px' }}>
             {/* 낙찰 성공 (최상단 강조) */}
             {wonItems.length > 0 && (
               <section style={{ marginBottom: '36px' }}>
@@ -209,7 +209,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                 )}
               </div>
             </section>
-          </>
+          </div>
         )}
 
         {activeTab === 'progress' && (
