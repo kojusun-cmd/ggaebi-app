@@ -50,7 +50,7 @@ export function CheckoutPage({ onBack, item }: CheckoutPageProps) {
         {/* 1. 최종 낙찰 상품 요약 (메인화면 상품 배너 규격 적용) */}
         <div style={{ marginBottom: '12px' }}>
           <h2 style={{ fontSize: '15px', color: '#64748B', fontWeight: 'bold', marginBottom: '12px', marginLeft: '4px' }}>결제 상품 정보</h2>
-          <div className="feed-card" style={{ margin: '0 -8px', cursor: 'default' }}>
+          <div className="feed-card" style={{ margin: '0 7px 0 13px', cursor: 'default' }}>
             <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
               <img 
                 src={item?.img || "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?fit=crop&w=400&h=400"} 
