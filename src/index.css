@@ -572,6 +572,12 @@ h1, h2, h3, h4 {
   height: 168px;
 }
 
+/* Keep progress thumbnails identical to main feed */
+.bidding-progress-feed .feed-img-box {
+  width: 140px;
+  height: 140px;
+}
+
 .bidding-progress-feed .feed-title,
 .bidding-payment-feed .feed-title {
   font-size: 18px;
