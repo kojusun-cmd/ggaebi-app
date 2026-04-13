@@ -66,15 +66,15 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                 </h2>
                 <div className="feed-grid fade-slide-up">
                   {wonItems.map(item => (
-                    <div key={item.id} style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '16px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
-                      <div className="feed-card" style={{ border: 'none', background: 'transparent', boxShadow: 'none', paddingBottom: 0 }} onClick={() => onNavigate('detail', item)}>
+                    <div key={item.id} style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '20px', margin: '0 -8px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
+                      <div className="feed-card" style={{ margin: 0, border: 'none', background: 'transparent', boxShadow: 'none', padding: '12px' }} onClick={() => onNavigate('detail', item)}>
                         <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
                           <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
                           <div style={{ position: 'absolute', top: '8px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #FDE68A 0%, #D97706 100%)', color: '#fff', fontSize: '13px', padding: '4px 10px', borderRadius: '12px', fontWeight: 'bold', whiteSpace: 'nowrap', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
                             🏆 내게 낙찰됨
                           </div>
                         </div>
-                        <div className="feed-info" style={{ paddingBottom: '12px', display: 'flex', flexDirection: 'column', overflow: 'hidden', justifyContent: 'center' }}>
+                        <div className="feed-info" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', justifyContent: 'center' }}>
                           <div className="feed-title" style={{ color: '#065F46', paddingRight: '4px', marginBottom: '4px', wordBreak: 'keep-all' }}>{item.title}</div>
                           
                           <div>
@@ -97,7 +97,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                       </div>
 
                       {/* 하단 풀사이즈 안내 및 액션 영역 (옵션 1 구조) */}
-                      <div style={{ padding: '0 16px 16px 16px' }}>
+                      <div style={{ padding: '4px 12px 12px 12px' }}>
                         {!isExpired ? (
                           <div style={{ display: 'flex', gap: '8px', width: '100%', marginBottom: '12px' }}>
                             <button style={{ flex: 1, padding: '12px', background: '#fff', color: '#059669', border: '1px solid #059669', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setShowChatModal(true); }}>
