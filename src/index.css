@@ -605,7 +605,7 @@ h1, h2, h3, h4 {
 
 /* Payment banners keep previous frame */
 .bidding-payment-feed .feed-card {
-  margin-left: -26px;
+  margin-left: -30px;
   margin-right: -26px;
   padding: 9px;
   gap: 10px;
@@ -636,13 +636,13 @@ h1, h2, h3, h4 {
 
 /* Swipe wrapper on payment-completed cards needs outer gutter parity */
 .bidding-payment-feed .bidding-payment-swipe-card {
-  margin-left: -26px;
+  margin-left: -30px;
   margin-right: -26px;
 }
 
 /* Slightly wider only for payment won banner */
 .bidding-payment-feed .bidding-payment-won-card {
-  margin-left: -30px !important;
+  margin-left: -34px !important;
   margin-right: -30px !important;
 }
 
