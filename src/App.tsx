@@ -29,6 +29,9 @@ function App() {
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const appWrapperRef = useRef<HTMLDivElement>(null);
   const scrollPositions = useRef<Record<string, number>>({});
+  const [scrollThumbTop, setScrollThumbTop] = useState(0);
+  const [scrollThumbHeight, setScrollThumbHeight] = useState(44);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
   // Auth States
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -78,6 +81,34 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  const updateScrollIndicator = () => {
+    const el = appWrapperRef.current;
+    if (!el) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const hasOverflow = scrollHeight > clientHeight + 1;
+    setShowScrollIndicator(hasOverflow);
+    if (!hasOverflow) return;
+
+    const trackHeight = Math.max(clientHeight - 28, 80);
+    const thumbHeight = Math.max((clientHeight / scrollHeight) * trackHeight, 36);
+    const maxScroll = Math.max(scrollHeight - clientHeight, 1);
+    const maxThumbTop = Math.max(trackHeight - thumbHeight, 0);
+    const thumbTop = (scrollTop / maxScroll) * maxThumbTop;
+
+    setScrollThumbHeight(thumbHeight);
+    setScrollThumbTop(thumbTop);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(updateScrollIndicator, 0);
+    window.addEventListener('resize', updateScrollIndicator);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateScrollIndicator);
+    };
+  }, [currentPage]);
+
   const handleNavigate = (page: string, item?: any) => {
     // 보호된 페이지 목록 - 로그인 필요 (user는 자체적으로 로그인 UI를 보여주므로 제외)
     const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
@@ -118,7 +149,18 @@ function App() {
 
   return (
     <>
-      <div className="app-wrapper" ref={appWrapperRef}>
+      <div className="app-wrapper" ref={appWrapperRef} onScroll={updateScrollIndicator}>
+        {showScrollIndicator && (
+          <div className="app-scroll-indicator-track" aria-hidden="true">
+            <div
+              className="app-scroll-indicator-thumb"
+              style={{
+                height: `${scrollThumbHeight}px`,
+                transform: `translateY(${scrollThumbTop}px)`,
+              }}
+            />
+          </div>
+        )}
         {currentPage === 'home' && <MainPage onNavigate={handleNavigate} appWrapperRef={appWrapperRef} />}
         {currentPage === 'search' && <SearchPage onNavigate={handleNavigate} onBack={handleBack} />}
         {currentPage === 'registration' && <ProductRegistrationPage onBack={handleBack} onComplete={() => handleNavigate('home')} />}
