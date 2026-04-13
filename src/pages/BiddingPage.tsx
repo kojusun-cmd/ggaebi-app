@@ -82,7 +82,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
                 </h2>
                 <div className="feed-grid fade-slide-up bidding-payment-feed">
                   {wonItems.map(item => (
-                    <div key={item.id} style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '20px', margin: '0 -8px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
+                    <div key={item.id} className="bidding-payment-won-card" style={{ display: 'flex', flexDirection: 'column', background: '#F0FDF4', border: '2px solid #10B981', borderRadius: '20px', margin: '0 -8px', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)', overflow: 'hidden' }}>
                       <div className="feed-card" style={{ margin: 0, border: 'none', background: 'transparent', boxShadow: 'none', padding: '12px' }} onClick={() => onNavigate('detail', item)}>
                         <div className="feed-img-box" style={{ overflow: 'hidden', padding: 0, position: 'relative' }}>
                           <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${item.id}/400/400`; }} />
