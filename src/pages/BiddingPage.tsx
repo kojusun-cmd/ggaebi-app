@@ -145,7 +145,7 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
             )}
 
             {/* 심사/결과 대기 중 영역 */}
-            <section style={{ marginTop: '12px', marginBottom: '36px' }}>
+            <section style={{ marginTop: '20px', marginBottom: '36px' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px' }}>⏳ 결과 대기 및 거래 종료</h2>
               <div className="feed-grid fade-slide-up bidding-payment-feed">
                 {completedItems.length > 0 ? (
