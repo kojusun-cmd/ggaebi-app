@@ -65,7 +65,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
         </div>
       </header>
 
-      <div className="content-area subpage" style={{ paddingTop: '80px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '56px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {chatRooms.map(room => (
             <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => { setActiveChatRoom(room); setChatStep(room.status === 'penalty' ? 5 : room.status === 'success' ? 4 : 0); setShowChatModal(true); }}>
