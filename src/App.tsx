@@ -74,8 +74,10 @@ function App() {
           }
         }, 0);
       } else {
-        setCurrentPage('home');
-        setHistory(['home']);
+        // 모바일 브라우저/웹뷰에서 popstate의 state가 비어오는 경우가 있어
+        // 여기서 home으로 강제 이동하면 모달 뒤로가기 시 화면이 튀게 된다.
+        // 유효한 page state가 없는 popstate는 무시한다.
+        return;
       }
     };
 
