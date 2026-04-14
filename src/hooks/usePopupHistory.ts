@@ -15,12 +15,27 @@ export function usePopupHistory(
   useEffect(() => {
     if (isOpen) {
       isPoppedByBackButton.current = false;
-      const currentState = window.history.state || {};
+      const rawState = window.history.state || {};
       const fallbackPage = options?.fallbackPage;
+      const baseState =
+        !rawState.page && fallbackPage
+          ? {
+              ...rawState,
+              page: fallbackPage,
+              history: rawState.history ?? [fallbackPage],
+            }
+          : rawState;
+
+      // 뒤로가기 시 팝업 바로 아래 엔트리가 항상 페이지 상태를 가지도록 보정
+      // (모바일 브라우저/웹뷰에서 state 누락 시 홈으로 튀는 문제 방지)
+      if (baseState !== rawState) {
+        window.history.replaceState(baseState, '');
+      }
+
       const popupState = {
-        ...currentState,
-        page: currentState.page ?? fallbackPage,
-        history: currentState.history ?? (fallbackPage ? [fallbackPage] : undefined),
+        ...baseState,
+        page: baseState.page ?? fallbackPage,
+        history: baseState.history ?? (fallbackPage ? [fallbackPage] : undefined),
         popup: popupId,
       };
       window.history.pushState(popupState, '');
