@@ -27,36 +27,43 @@ export function usePopupHistory(
           : rawState;
 
       // 뒤로가기 시 팝업 바로 아래 엔트리가 항상 페이지 상태를 가지도록 보정
-      // (모바일 브라우저/웹뷰에서 state 누락 시 홈으로 튀는 문제 방지)
       if (baseState !== rawState) {
         window.history.replaceState(baseState, '');
       }
 
-      const popupState = {
-        ...baseState,
-        page: baseState.page ?? fallbackPage,
-        history: baseState.history ?? (fallbackPage ? [fallbackPage] : undefined),
-        popup: popupId,
-      };
-      window.history.pushState(popupState, '');
+      // 이미 이 팝업의 상태가 최상단에 있다면 pushState 생략 (React StrictMode 등 중복 실행 방지)
+      if (window.history.state?.popup !== popupId) {
+        const popupState = {
+          ...baseState,
+          page: baseState.page ?? fallbackPage,
+          history: baseState.history ?? (fallbackPage ? [fallbackPage] : undefined),
+          popup: popupId,
+        };
+        window.history.pushState(popupState, '');
+      }
     } else {
-      // 만약 외부(뒤로가기가 아닌 버튼 클릭 등)에서 팝업이 닫혔다면,
-      // 우리가 방금 쌓았던 히스토리를 깔끔하게 지워줌.
-      // (현재 브라우저 상태가 방금 띄웠던 팝업 히스토리일 경우에만)
+      // 외부에서 팝업이 닫혔고, 현재 브라우저 상태가 방금 띄웠던 해당 팝업 히스토리라면
       if (!isPoppedByBackButton.current && window.history.state?.popup === popupId) {
+        isPoppedByBackButton.current = true; // 방어 코드: StrictMode 등에서 2번 연달아 back()이 호출되는 것을 방지
         window.history.back();
       }
     }
   }, [isOpen, popupId, options?.fallbackPage]);
 
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopState = (e: PopStateEvent) => {
+      // 팝업이 열려있는데 뒤로가기가 발생할 경우:
+      // 브라우저의 현재 상태(e.state)에 내 팝업 ID가 없어야만 닫힘으로 처리함.
+      // (다른 팝업이 닫혀서 내 팝업 상태로 돌아온 경우는 닫지 않음)
       if (isOpen) {
-        isPoppedByBackButton.current = true;
-        onClose();
+        // e.state가 아예 없거나, e.state.popup이 내 popupId와 다르면(즉 내가 최상단이 아니면) 닫기
+        if (!e.state || e.state.popup !== popupId) {
+          isPoppedByBackButton.current = true;
+          onClose();
+        }
       }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, popupId]);
 }
