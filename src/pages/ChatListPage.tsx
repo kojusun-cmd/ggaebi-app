@@ -14,7 +14,8 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
         setShowChatModal(false);
         setActiveChatRoom(null);
       },
-      'ChatList_ChatModal'
+      'ChatList_ChatModal',
+      { fallbackPage: 'chat' }
     );
 
     usePopupHistory(
