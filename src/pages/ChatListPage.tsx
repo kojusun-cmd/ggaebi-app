@@ -257,7 +257,7 @@ export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNav
         </div>
       )}
 
-      <nav className="bottom-nav" style={{ gridTemplateColumns: '1.1fr 1.1fr auto 1.1fr 1.1fr', padding: '0 36px 0 42px' }}>
+      <nav className="bottom-nav" style={{ gridTemplateColumns: '1.25fr 1.25fr auto 1.25fr 1.25fr', padding: '0 24px 0 30px' }}>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate?.('home')}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate?.('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
         <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate?.('registration')}>
