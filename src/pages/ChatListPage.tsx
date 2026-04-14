@@ -1,9 +1,9 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Gavel, Home, MessageCircle, Plus, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePopupHistory } from "../hooks/usePopupHistory";
 import { FEED_ITEMS } from "../data/mockData";
 
-export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (page: string, item?: any) => void }) {
+export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNavigate?: (page: string, item?: any) => void }) {
     const [showChatModal, setShowChatModal] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const [activeChatRoom, setActiveChatRoom] = useState<any>(null);
@@ -104,7 +104,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
         </div>
       </header>
 
-      <div className="content-area subpage" style={{ paddingTop: '0px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '0px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {chatRooms.map(room => (
             <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => openChatModal(room)}>
@@ -256,6 +256,22 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
           )}
         </div>
       )}
+
+      <nav className="bottom-nav">
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate?.('home')}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate?.('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
+        <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate?.('registration')}>
+          <Plus size={28} color="#fff" strokeWidth={3} />
+        </div>
+        <div className="nav-item active" style={{cursor: 'pointer'}}>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <MessageCircle size={22} />
+            <div style={{ position: 'absolute', top: '-6px', right: '-8px', background: '#EF4444', color: '#fff', fontSize: '10px', fontWeight: 'bold', width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #fff', boxShadow: '0 1px 3px rgba(239,68,68,0.3)' }}>1</div>
+          </div>
+          <span>채팅</span>
+        </div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate?.('user')}><User size={24} /><span>내 정보</span></div>
+      </nav>
     </>
     );
 }
