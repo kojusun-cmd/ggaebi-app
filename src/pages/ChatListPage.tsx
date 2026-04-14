@@ -1,5 +1,5 @@
 import { ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePopupHistory } from "../hooks/usePopupHistory";
 import { FEED_ITEMS } from "../data/mockData";
 
@@ -7,16 +7,8 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
     const [showChatModal, setShowChatModal] = useState(false);
     const [chatStep, setChatStep] = useState(0);
     const [activeChatRoom, setActiveChatRoom] = useState<any>(null);
-
-    usePopupHistory(
-      showChatModal,
-      () => {
-        setShowChatModal(false);
-        setActiveChatRoom(null);
-      },
-      'ChatList_ChatModal',
-      { fallbackPage: 'chat' }
-    );
+    const chatModalPopupId = 'ChatList_ChatModal';
+    const isChatModalHistoryPushed = useRef(false);
 
     usePopupHistory(
       chatStep === 6,
@@ -25,6 +17,52 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
       },
       'ChatList_ObjectionModal'
     );
+
+    const openChatModal = (room: any) => {
+      const currentState = window.history.state || {};
+      const nextStep = room.status === 'penalty' ? 5 : room.status === 'success' ? 4 : 0;
+      window.history.pushState(
+        {
+          ...currentState,
+          page: currentState.page ?? 'chat',
+          history: currentState.history ?? ['home', 'chat'],
+          popup: chatModalPopupId,
+        },
+        ''
+      );
+      isChatModalHistoryPushed.current = true;
+      setActiveChatRoom(room);
+      setChatStep(nextStep);
+      setShowChatModal(true);
+    };
+
+    const closeChatModal = (byBackButton = false) => {
+      setShowChatModal(false);
+      setActiveChatRoom(null);
+      setChatStep(0);
+      if (
+        !byBackButton &&
+        isChatModalHistoryPushed.current &&
+        window.history.state?.popup === chatModalPopupId
+      ) {
+        window.history.back();
+      }
+      isChatModalHistoryPushed.current = false;
+    };
+
+    useEffect(() => {
+      const handlePopStateCapture = (e: PopStateEvent) => {
+        // 이의 제기 팝업이 열린 상태에서는 해당 팝업 히스토리를 먼저 처리한다.
+        if (!showChatModal || chatStep === 6) return;
+        e.stopImmediatePropagation();
+        closeChatModal(true);
+      };
+
+      window.addEventListener('popstate', handlePopStateCapture, true);
+      return () => {
+        window.removeEventListener('popstate', handlePopStateCapture, true);
+      };
+    }, [showChatModal, chatStep]);
 
     const chatRooms = [
             {
@@ -69,7 +107,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
       <div className="content-area subpage" style={{ paddingTop: '0px', paddingBottom: '30px', background: '#F8FAFC', minHeight: '100vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {chatRooms.map(room => (
-            <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => { setActiveChatRoom(room); setChatStep(room.status === 'penalty' ? 5 : room.status === 'success' ? 4 : 0); setShowChatModal(true); }}>
+            <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => openChatModal(room)}>
               <div style={{ position: 'relative' }}>
                 <div style={{ width: '56px', height: '56px', borderRadius: '16px', overflow: 'hidden', background: '#E2E8F0', border: '1px solid #E2E8F0' }}>
                   <img src={room.image} alt="상품 이미지" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${room.id * 10}/200/200`; }} />
@@ -103,7 +141,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', zIndex: 999, display: 'flex', flexDirection: 'column' }}>
           <div style={{ background: '#fff', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div onClick={() => { setShowChatModal(false); setActiveChatRoom(null); }} style={{ cursor: 'pointer' }}><ChevronLeft size={28} /></div>
+              <div onClick={() => closeChatModal(false)} style={{ cursor: 'pointer' }}><ChevronLeft size={28} /></div>
               <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{activeChatRoom.partner}</span>
             </div>
           </div>
@@ -211,7 +249,7 @@ export function ChatListPage({ onBack }: { onBack: () => void, onNavigate?: (pag
                 </p>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button onClick={() => setChatStep(5)} style={{ flex: 1, padding: '12px', border: 'none', background: '#E2E8F0', color: '#475569', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}>취소</button>
-                  <button onClick={() => { alert('이의 제기가 접수되었습니다.'); setShowChatModal(false); }} style={{ flex: 1, padding: '12px', border: 'none', background: '#10B981', color: '#fff', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}>제출하기</button>
+                  <button onClick={() => { alert('이의 제기가 접수되었습니다.'); closeChatModal(false); }} style={{ flex: 1, padding: '12px', border: 'none', background: '#10B981', color: '#fff', borderRadius: '12px', fontWeight: 'bold', fontSize: '14px', cursor: 'pointer' }}>제출하기</button>
                 </div>
               </div>
             </div>
