@@ -294,7 +294,10 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
       </div>
 
       {/* 하단 네비게이션 */}
-      <nav className="bottom-nav">
+      <nav
+        className="bottom-nav"
+        style={{ gridTemplateColumns: '1.25fr 1.25fr auto 1.25fr 1.25fr', columnGap: '22px', padding: '0 12px' }}
+      >
         <div className="nav-item active" style={{cursor: 'pointer'}} onClick={resetToHome}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
         <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate('registration')}>
