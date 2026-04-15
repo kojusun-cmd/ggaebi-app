@@ -104,7 +104,7 @@ export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNav
         </div>
       </header>
 
-      <div className="content-area subpage" style={{ paddingTop: '0px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh' }}>
+      <div className="content-area subpage" style={{ paddingTop: '0px', paddingRight: '16px', paddingBottom: '100px', paddingLeft: '16px', background: '#F8FAFC', minHeight: '100vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {chatRooms.map(room => (
             <div key={room.id} style={{ display: 'flex', gap: '16px', padding: '16px 20px', background: '#fff', borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onClick={() => openChatModal(room)}>
