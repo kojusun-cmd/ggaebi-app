@@ -175,6 +175,9 @@ function App() {
   const handleNavigate = (page: string, item?: any) => {
     // 보호된 페이지 목록 - 로그인 필요 (user는 자체적으로 로그인 UI를 보여주므로 제외)
     const protectedPages = ['bidding', 'registration', 'chat', 'notifications', 'won_history', 'sales_history', 'wallet', 'payment_methods', 'checkout', 'profile_edit'];
+    const bottomTabPages = ['home', 'bidding', 'chat', 'user'];
+    const isBottomTabTarget = bottomTabPages.includes(page);
+    const isCurrentPageHome = currentPageRef.current === 'home';
     
     if (protectedPages.includes(page) && !isLoggedIn) {
       setShowAuthSheet(true);
@@ -189,6 +192,25 @@ function App() {
     if (item !== undefined) setSelectedItem(item);
     
     setHistory(prev => {
+        // 하단바 탭은 히스토리를 home 기준으로 압축하여 뒤로가기 시 항상 home으로 이동
+        if (isBottomTabTarget) {
+          if (page === 'home') {
+            const newHistory = ['home'];
+            window.history.replaceState({ page, history: newHistory, item: finalItem }, '');
+            return newHistory;
+          }
+
+          const newHistory = ['home', page];
+          if (isCurrentPageHome) {
+            // home -> 탭 진입은 한 단계 쌓아서 뒤로가기 시 home 복귀
+            window.history.pushState({ page, history: newHistory, item: finalItem }, '');
+          } else {
+            // 탭 간/서브페이지 -> 탭 이동은 현재 히스토리를 교체하여 중간 경로 제거
+            window.history.replaceState({ page, history: newHistory, item: finalItem }, '');
+          }
+          return newHistory;
+        }
+
         const newHistory = [...prev, page];
         // 팝업이 띄워진 상태에서 페이지 이동을 요청한 경우 (팝업 히스토리를 덮어씌움)
         if (window.history.state?.popup) {
