@@ -146,13 +146,13 @@ export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNav
             </div>
           </div>
           
-          <div style={{ flex: 1, background: '#F8FAFC', padding: '8px', overflowY: 'auto' }}>
+          <div style={{ flex: 1, background: '#F8FAFC', padding: '20px', overflowY: 'auto' }}>
             {/* 기본 채팅 내역 */}
             <div style={{ textAlign: 'center', margin: '20px 0', color: '#94A3B8', fontSize: '13px' }}>오후 2:30</div>
             
             <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
               <div style={{ width: '40px', height: '40px', background: '#E2E8F0', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>🧑</div>
-              <div style={{ background: '#fff', padding: '12px 16px', borderRadius: '0 16px 16px 16px', border: '1px solid #E2E8F0', maxWidth: '90%', fontSize: '14px' }}>
+              <div style={{ background: '#fff', padding: '12px 16px', borderRadius: '0 16px 16px 16px', border: '1px solid #E2E8F0', maxWidth: '75%', fontSize: '14px' }}>
                 낙찰을 축하드립니다! 직거래와 택배 중 어떤 걸로 진행하시겠어요?
               </div>
             </div>
@@ -172,7 +172,7 @@ export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNav
             {/* Step 1: 일반 문의 */}
             {chatStep === 1 && (
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
-                <div style={{ background: '#10B981', color: '#fff', padding: '12px 16px', borderRadius: '16px 0 16px 16px', maxWidth: '90%', fontSize: '14px' }}>
+                <div style={{ background: '#10B981', color: '#fff', padding: '12px 16px', borderRadius: '16px 0 16px 16px', maxWidth: '75%', fontSize: '14px' }}>
                   [제품/배송 문의] 상세한 배송 일정과 직거래 가능 위치 여쭤봅니다!
                 </div>
               </div>
@@ -181,7 +181,7 @@ export function ChatListPage({ onBack, onNavigate }: { onBack: () => void, onNav
             {/* Step 2 이상: 낙찰 취소 전송 흔적 */}
             {chatStep >= 2 && chatStep !== 4 && chatStep !== 5 && chatStep !== 6 && (
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
-                <div style={{ background: '#10B981', color: '#fff', padding: '12px 16px', borderRadius: '16px 0 16px 16px', maxWidth: '90%', fontSize: '14px' }}>
+                <div style={{ background: '#10B981', color: '#fff', padding: '12px 16px', borderRadius: '16px 0 16px 16px', maxWidth: '75%', fontSize: '14px' }}>
                   [낙찰포기] 부득이한 사정으로 낙찰 취소를 요청합니다. 정말 죄송합니다.
                 </div>
               </div>
