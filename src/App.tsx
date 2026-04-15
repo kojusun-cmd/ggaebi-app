@@ -27,6 +27,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [, setHistory] = useState<string[]>(['home']);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const currentPageRef = useRef<string>('home');
+  const exitOnNextHomeBackRef = useRef(false);
   const appWrapperRef = useRef<HTMLDivElement>(null);
   const scrollPositions = useRef<Record<string, number>>({});
   const [scrollThumbTop, setScrollThumbTop] = useState(0);
@@ -40,6 +42,32 @@ function App() {
     return localStorage.getItem('ggaebi_isLoggedIn') === 'true';
   });
   const [showAuthSheet, setShowAuthSheet] = useState(false);
+
+  useEffect(() => {
+    currentPageRef.current = currentPage;
+  }, [currentPage]);
+
+  const requestAppExit = () => {
+    const hostWindow = window as any;
+
+    // Native bridges (Android/WebView/iOS wrappers) should handle real app termination.
+    if (typeof hostWindow.Android?.exitApp === 'function') {
+      hostWindow.Android.exitApp();
+      return;
+    }
+    if (typeof hostWindow.webkit?.messageHandlers?.exitApp?.postMessage === 'function') {
+      hostWindow.webkit.messageHandlers.exitApp.postMessage({ type: 'EXIT_APP' });
+      return;
+    }
+    if (typeof hostWindow.ReactNativeWebView?.postMessage === 'function') {
+      hostWindow.ReactNativeWebView.postMessage(JSON.stringify({ type: 'EXIT_APP' }));
+      return;
+    }
+
+    // Fallback for plain browsers.
+    window.close();
+    window.history.back();
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -56,11 +84,18 @@ function App() {
     }
 
     const handlePopState = (e: PopStateEvent) => {
+      // 뒤로가기로 home에 도달한 이후의 다음 뒤로가기는 앱 종료로 처리
+      if (currentPageRef.current === 'home' && exitOnNextHomeBackRef.current) {
+        requestAppExit();
+        return;
+      }
+
       // 팝업들은 usePopupHistory 훅에서 자체적으로 닫히므로, 
       // 앱 라우터는 안전하게 e.state.page만 보고 페이지를 전환하면 됨.
       if (e.state && e.state.page) {
         const nextTarget = e.state.page;
         const newHistory = e.state.history || ['home'];
+        exitOnNextHomeBackRef.current = nextTarget === 'home';
         
         setHistory(newHistory);
         setCurrentPage(nextTarget);
@@ -74,9 +109,10 @@ function App() {
           }
         }, 0);
       } else {
-        // 모바일 브라우저/웹뷰에서 popstate의 state가 비어오는 경우가 있어
-        // 여기서 home으로 강제 이동하면 모달 뒤로가기 시 화면이 튀게 된다.
-        // 유효한 page state가 없는 popstate는 무시한다.
+        // 모바일 브라우저/웹뷰에서 state가 비어온 상태로 home에 있으면 종료 시도
+        if (currentPageRef.current === 'home') {
+          requestAppExit();
+        }
         return;
       }
     };
@@ -164,6 +200,7 @@ function App() {
     });
 
     setShowAuthSheet(false);
+    exitOnNextHomeBackRef.current = false;
     setCurrentPage(page);
     setTimeout(() => {
       if (appWrapperRef.current) appWrapperRef.current.scrollTop = 0;
