@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Home, Gavel, Plus, MessageCircle, User } from "lucide-react";
 import { useState } from "react";
 import { SwipeToDeleteCard } from "../components/SwipeToDeleteCard";
 import { FEED_ITEMS } from "../data/mockData";
@@ -264,6 +264,22 @@ export function BiddingPage({ onBack, onNavigate, initialTab }: { onBack: () => 
         )}
 
       </div>
+
+      <nav className="bottom-nav" style={{ gridTemplateColumns: '1.3fr 1.3fr auto 1.3fr 1.3fr', padding: '0 22px 0 28px' }}>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('home')}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
+        <div className="nav-item active" style={{cursor: 'pointer'}}><Gavel size={22} /><span>입찰내역</span></div>
+        <div className="nav-fab" style={{ cursor: 'pointer', background: 'linear-gradient(135deg, #10B981 0%, #11F17E 100%)' }} onClick={() => onNavigate('registration')}>
+          <Plus size={28} color="#fff" strokeWidth={3} />
+        </div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('chat')}>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <MessageCircle size={22} />
+            <div style={{ position: 'absolute', top: '-6px', right: '-8px', background: '#EF4444', color: '#fff', fontSize: '10px', fontWeight: 'bold', width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #fff', boxShadow: '0 1px 3px rgba(239,68,68,0.3)' }}>1</div>
+          </div>
+          <span>채팅</span>
+        </div>
+        <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('user')}><User size={24} /><span>내 정보</span></div>
+      </nav>
 
       {showChatModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', zIndex: 999, display: 'flex', flexDirection: 'column' }}>
