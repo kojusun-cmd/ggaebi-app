@@ -59,7 +59,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
       </header>
       
       {/* 바디 */}
-      <div className="content-area subpage" style={{ paddingTop: '64px', paddingRight: '12px', paddingBottom: '100px', paddingLeft: '12px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
+      <div className="content-area subpage" style={{ paddingTop: '12px', paddingRight: '12px', paddingBottom: '100px', paddingLeft: '12px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
         
         {!isLoggedIn ? (
           <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
