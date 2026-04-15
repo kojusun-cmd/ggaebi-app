@@ -59,10 +59,10 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
       </header>
       
       {/* 바디 */}
-      <div className="content-area subpage" style={{ paddingTop: '64px', paddingBottom: '100px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
+      <div className="content-area subpage" style={{ paddingTop: '64px', paddingRight: '12px', paddingBottom: '100px', paddingLeft: '12px', background: '#F8FAFC', minHeight: '100vh', position: 'relative' }}>
         
         {!isLoggedIn ? (
-          <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
+          <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '20px' }}>
             <div>
               <h2 style={{ fontSize: '26px', fontWeight: 'bold', color: '#1E293B', marginBottom: '8px', lineHeight: 1.4, letterSpacing: '-0.5px' }}>
                 3초 만에 시작하고<br/>
@@ -170,7 +170,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
         </section>
 
         {/* 2. 나의 경매 요약 */}
-        <section style={{ margin: '24px 20px' }}>
+        <section style={{ margin: '24px 0' }}>
           <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '16px', color: '#1E293B' }}>나의 경매 활동</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             
@@ -213,7 +213,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
         </section>
 
         {/* 3. 깨비페이 (지갑) */}
-        <section style={{ margin: '24px 20px', background: '#2E343E', borderRadius: '20px', padding: '24px', color: '#fff', boxShadow: '0 8px 16px rgba(46,52,62,0.15)' }}>
+        <section style={{ margin: '24px 0', background: '#2E343E', borderRadius: '20px', padding: '24px', color: '#fff', boxShadow: '0 8px 16px rgba(46,52,62,0.15)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }} onClick={() => onNavigate('wallet')} className="cursor-pointer">
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', fontWeight: 'bold' }}>
               <Wallet size={20} color="#35D8E6" />
@@ -247,7 +247,7 @@ export function UserPage({ onNavigate, onBack, isLoggedIn, onLogin }: { onNaviga
         </section>
 
         {/* 4. 리스트 메뉴 */}
-        <section style={{ margin: '0 20px', background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+        <section style={{ margin: '0', background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
           {[
             { icon: <MapPin size={20} color="#64748B" />, title: '내 동네 설정 관리' },
             { icon: <Clock size={20} color="#64748B" />, title: '나의 거래 내역 전체보기' },
