@@ -296,7 +296,7 @@ export function MainPage({ onNavigate, appWrapperRef }: { onNavigate: (page: str
       {/* 하단 네비게이션 */}
       <nav
         className="bottom-nav"
-        style={{ gridTemplateColumns: '64px 64px auto 64px 64px', justifyContent: 'center', columnGap: '6px', padding: '0' }}
+        style={{ gridTemplateColumns: '56px 56px auto 56px 56px', justifyContent: 'center', columnGap: '4px', padding: '0' }}
       >
         <div className="nav-item active" style={{cursor: 'pointer'}} onClick={resetToHome}><Home size={24} strokeWidth={2.5} /><span>홈</span></div>
         <div className="nav-item" style={{cursor: 'pointer', color: '#94A3B8'}} onClick={() => onNavigate('bidding')}><Gavel size={22} /><span>입찰내역</span></div>
